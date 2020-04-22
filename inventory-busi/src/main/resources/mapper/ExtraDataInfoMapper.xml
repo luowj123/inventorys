@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.busi.dao.IExtraDataInfoDao">
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.asiainfo.busi.entity.ExtraDataInfo">
+	    <id column="extra_id" jdbcType="INTEGER" property="extraId" />
+	    <result column="system_id" jdbcType="INTEGER" property="systemId" />
+	    <result column="extra_type" jdbcType="VARCHAR" property="extraType" />
+	    <result column="extra_provide" jdbcType="VARCHAR" property="extraProvide" />
+	    <result column="extra_collect" jdbcType="VARCHAR" property="extraCollect" />
+	    <result column="extra_updata" jdbcType="VARCHAR" property="extraUpdata" />
+	    <result column="expir_time" jdbcType="TIMESTAMP" property="expirTime" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<!-- 字段 -->
+	<sql id="Base_Column_List">
+		extra_id, system_id, extra_type, extra_provide, extra_collect, extra_updata, expir_time, 
+    	create_by, create_time, update_by, update_time
+	</sql>
+
+	<!-- 分页查询 -->
+	<select id="selectByPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from td_extra_data_info
+		<include refid="Base_Where_List" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+		select 
+	    <include refid="Base_Column_List" />
+	    from td_extra_data_info
+    	where extra_id = #{extraId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="Map">
+		insert into td_extra_data_info (extra_id, system_id, extra_type, 
+	      extra_provide, extra_collect, extra_updata, 
+	      expir_time, create_by, create_time, 
+	      update_by, update_time)
+	    values (nextval('td_extra_data_info_extra_id_seq'), #{systemId,jdbcType=INTEGER}, #{extraType,jdbcType=VARCHAR}, 
+	      #{extraProvide,jdbcType=VARCHAR}, #{extraCollect,jdbcType=VARCHAR}, #{extraUpdata,jdbcType=VARCHAR}, 
+	      #{expirTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+	      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+
+	<!-- 新增 -->
+	<insert id="insertList" parameterType="Map">
+		insert into td_system_info (extra_id, system_id, extra_type, 
+	      extra_provide, extra_collect, extra_updata, 
+	      expir_time, create_by, create_time, 
+	      update_by, update_time)
+    	values 
+    	<foreach collection="list" item="data" separator=",">
+    	(nextval('td_extra_data_info_extra_id_seq'), #{data.systemId,jdbcType=INTEGER}, #{data.extraType,jdbcType=VARCHAR}, 
+	      #{data.extraProvide,jdbcType=VARCHAR}, #{data.extraCollect,jdbcType=VARCHAR}, #{data.extraUpdata,jdbcType=VARCHAR}, 
+	      #{data.expirTime,jdbcType=TIMESTAMP}, #{data.createBy,jdbcType=VARCHAR}, #{data.createTime,jdbcType=TIMESTAMP}, 
+	      #{data.updateBy,jdbcType=VARCHAR}, #{data.updateTime,jdbcType=TIMESTAMP}
+      	)
+      	</foreach>
+   </insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="com.asiainfo.busi.entity.ExtraDataInfo">
+		update td_extra_data_info
+	    <set>
+	      <if test="systemId != null">
+	        system_id = #{systemId,jdbcType=INTEGER},
+	      </if>
+	      <if test="extraType != null">
+	        extra_type = #{extraType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="extraProvide != null">
+	        extra_provide = #{extraProvide,jdbcType=VARCHAR},
+	      </if>
+	      <if test="extraCollect != null">
+	        extra_collect = #{extraCollect,jdbcType=VARCHAR},
+	      </if>
+	      <if test="extraUpdata != null">
+	        extra_updata = #{extraUpdata,jdbcType=VARCHAR},
+	      </if>
+	      <if test="expirTime != null">
+	        expir_time = #{expirTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="createBy != null">
+	        create_by = #{createBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createTime != null">
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="updateBy != null">
+	        update_by = #{updateBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="updateTime != null">
+	        update_time = #{updateTime,jdbcType=TIMESTAMP},
+	      </if>
+	    </set>
+	    where extra_id = #{extraId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    	delete from td_extra_data_info
+    		where extra_id = #{extraId,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 过滤条件 -->
+	<sql id="Base_Where_List">
+		<where>
+			1 = 1
+			<if test="systemId != null">
+		        and system_id = #{systemId,jdbcType=INTEGER}
+		      </if>
+		      <if test="extraType != null">
+		        and extra_type = #{extraType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="extraProvide != null">
+		        and extra_provide = #{extraProvide,jdbcType=VARCHAR}
+		      </if>
+		      <if test="extraCollect != null">
+		        and extra_collect = #{extraCollect,jdbcType=VARCHAR}
+		      </if>
+		      <if test="extraUpdata != null">
+		        and extra_updata = #{extraUpdata,jdbcType=VARCHAR}
+		      </if>
+		      <if test="expirTime != null">
+		        and expir_time = #{expirTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="createBy != null">
+		        and create_by = #{createBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createTime != null">
+		        and create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="updateBy != null">
+		        and update_by = #{updateBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="updateTime != null">
+		        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		 </where>
+	</sql>
+
+</mapper>

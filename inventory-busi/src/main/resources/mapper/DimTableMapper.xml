@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.busi.dao.IDimTableDao">
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.asiainfo.busi.entity.DimTable">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="val" jdbcType="VARCHAR" property="val" />
+	    <result column="pid" jdbcType="INTEGER" property="pid" />
+	    <result column="nodes" jdbcType="VARCHAR" property="nodes" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="remark" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+
+	<!-- 字段 -->
+	<sql id="Base_Column_List">
+		id, name, val, pid, nodes, create_time, remark
+	</sql>
+
+	<!-- 分页查询 -->
+	<select id="selectByPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from td_dim_table
+		<include refid="Base_Where_List" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+		select 
+	    <include refid="Base_Column_List" />
+	    from td_dim_table
+    	where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="Map">
+		insert into td_dim_table (id, name, val, pid, nodes, create_time, remark)
+    		values (nextval('td_dim_table_id_seq'),  #{name,jdbcType=VARCHAR}, #{val,jdbcType=VARCHAR}, 
+      		#{pid,jdbcType=INTEGER}, #{nodes,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      		#{remark,jdbcType=VARCHAR})
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="com.asiainfo.busi.entity.DimTable">
+		update td_dim_table
+	    <set>
+	      <if test="name != null">
+	        name = #{name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="val != null">
+	        val = #{val,jdbcType=VARCHAR},
+	      </if>
+	      <if test="pid != null">
+	        pid = #{pid,jdbcType=INTEGER},
+	      </if>
+	      <if test="nodes != null">
+	        nodes = #{nodes,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createTime != null">
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="remark != null">
+	        remark = #{remark,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    	delete from td_dim_table
+    		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 过滤条件 -->
+	<sql id="Base_Where_List">
+		<where>
+			1 = 1
+			<if test="name != null">
+		        and name = #{name,jdbcType=VARCHAR}
+		      </if>
+		      <if test="val != null">
+		        and val = #{val,jdbcType=VARCHAR}
+		      </if>
+		      <if test="pid != null">
+		        and pid = #{pid,jdbcType=INTEGER}
+		      </if>
+		      <if test="nodes != null">
+		        and nodes = #{nodes,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createTime != null">
+		        and create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="remark != null">
+		        and remark = #{remark,jdbcType=VARCHAR}
+		      </if>
+		 </where>
+	</sql>
+
+</mapper>

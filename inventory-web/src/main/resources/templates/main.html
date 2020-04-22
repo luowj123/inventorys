@@ -1,0 +1,164 @@
+<!--
+ * @Descripttion: 首页
+ * @Author: chenpei<chenpei@asiainfo.com>
+ * @Date: 2020-04-17 09:33:27
+ * @LastEditTime: 2020-04-21 15:48:33
+ -->
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--360浏览器优先以webkit内核解析-->
+  <title>资产盘点</title>
+  <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{favicon.ico}">
+  <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+  <link href="../static/ajax/libs/bootstrap-table/bootstrap-table.min.css"
+    th:href="@{/ajax/libs/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet" />
+  <link href="../static/ajax/libs/zui/css/zui.css" th:href="@{/ajax/libs/zui/css/zui.css}" rel="stylesheet" />
+  <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+  <link href="../static/css/animate.css" th:href="@{/css/animate.css}" rel="stylesheet" />
+  <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+  <link href="../static/ajax/libs/layui/css/layui.css" th:href="@{/ajax/libs/layui/css/layui.css}" rel="stylesheet" />
+  <link href="../static/ruoyi/css/ry-ui.css" th:href="@{/ruoyi/css/ry-ui.css}" rel="stylesheet" />
+  <link rel="stylesheet" href="../static/css/main/main.css" th:href="@{/css/main/main.css}">
+</head>
+
+<body class="gray-bg">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- 系统分类 -->
+      <div class="col-sm-12">
+        <div class="mainBox">
+          <div class="main-line">
+            <span class="title">系统分类</span>
+            <div class="progress-box">
+              <div class="layui-progress layui-progress-big" lay-filter="coverageRate" lay-showPercent="true">
+                <div class="layui-progress-bar layui-bg-blue" lay-percent="0%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="classEchart">
+            <div id="allAera" class="classpie"></div>
+            <div id="ITAera" class="classpie"></div>
+            <div id="CNAera" class="classpie"></div>
+            <div id="BPAera" class="classpie"></div>
+            <div id="safeAera" class="classpie"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-row">
+        <!-- 模块分类 -->
+        <div class="col-sm-6 col-noPd">
+          <div class="mainBox">
+            <div class="content-body">
+              <div class="content-header">数据库个数</div>
+              <div class="body-box">
+                <p><span class="fa fa-database"></span> 93103</p>
+                <p>
+                  <span>日增:10</span>
+                  <span>月增:323</span>
+                  <span style="color: #cac9c9"> 待发布:3</span>
+                </p>
+              </div>
+            </div>
+            <div class="content-body">
+              <div class="content-header">表个数</div>
+              <div class="body-box">
+                <p><span class="fa fa-table"></span> 93103</p>
+                <p>
+                  <span>日增:10</span>
+                  <span>月增:323</span>
+                  <span style="color: #cac9c9"> 待发布:3</span>
+                </p>
+              </div>
+            </div>
+            <div class="content-body">
+              <div class="content-header">字段个数</div>
+              <div class="body-box">
+                <p><span class="fa fa-file-text"></span> 93103</p>
+                <p>
+                  <span>日增:10</span>
+                  <span>月增:323</span>
+                  <span style="color: #cac9c9"> 待发布:3</span>
+                </p>
+              </div>
+            </div>
+            <div class="content-body">
+              <div class="content-header">文件个数</div>
+              <div class="body-box">
+                <p><span class="fa fa-file"></span> 93103</p>
+                <p>
+                  <span>日增:10</span>
+                  <span>月增:323</span>
+                  <span style="color: #cac9c9"> 待发布:3</span>
+                </p>
+              </div>
+            </div>
+            <div class="content-body">
+              <div class="content-header">接口个数</div>
+              <div class="body-box">
+                <p><span class="fa fa-tags"></span> 93103</p>
+                <p>
+                  <span>日增:10</span>
+                  <span>月增:323</span>
+                  <span style="color: #cac9c9"> 待发布:3</span>
+                </p>
+              </div>
+            </div>
+            <div class="content-body">
+              <div class="content-header">外部数据个数</div>
+              <div class="body-box">
+                <p><span class="fa fa-tasks"></span> 93103</p>
+                <p>
+                  <span>日增:10</span>
+                  <span>月增:323</span>
+                  <span style="color: #cac9c9"> 待发布:3</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 合格率 -->
+        <div class="col-sm-6 col-noPd">
+          <div class="mainBox" style="height: 298px;">
+            <div id="percentPass" style="width: 100%; height: 100%;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-row">
+        <!-- 合格率 -->
+        <div class="mainBox" style="height: 360px;">
+          <div id="auditAndError" style="width: 100%; height: 100%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+  <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+  <script src="../static/ajax/libs/bootstrap-table/bootstrap-table.min.js"
+    th:src="@{/ajax/libs/bootstrap-table/bootstrap-table.min.js}"></script>
+  <script src="../static/ajax/libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"
+    th:src="@{/ajax/libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+  <script src="../static/ajax/libs/echarts-4.2.1/echarts.js" th:src="@{/ajax/libs/echarts-4.2.1/echarts.js}"></script>
+  <script src="../static/ajax/libs/blockUI/jquery.blockUI.js" th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
+  <script src="../static/ajax/libs/zui/js/zui.js" th:src="@{/ajax/libs/zui/js/zui.js}"></script>
+  <script src="../static/ajax/libs/layer/layer.min.js" th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+  <script src="../static/ajax/libs/layui/layui.js" th:src="@{/ajax/libs/layui/layui.js}"></script>
+  <script src="../static/ruoyi/js/common.js" th:src="@{/ruoyi/js/common.js}"></script>
+  <script src="../static/ruoyi/js/ry-ui.js" th:src="@{/ruoyi/js/ry-ui.js}"></script>
+  <script src="../static/ruoyi/js/publicFnc.js" th:src="@{/ruoyi/js/publicFnc.js}"></script>
+  <script src="../static/ruoyi/js/eleResize.js" th:src="@{/ruoyi/js/eleResize.js}"></script>
+  <script th:inline="javascript">
+    var auditAuth = [[${ auditAuth }]];
+    var user = [[${ user }]];
+    for(var i in user) {
+      sessionStorage.setItem(i, user[i]);
+    }
+  </script>
+  <script src="../static/js/main/main.js" th:src="@{/js/main/main.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+# 开发环境配置
+server:
+  # 服务端口
+  port: 8082
+  servlet:
+    # 项目contextPath
+    context-path: /inventory
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # tomcat最大线程数，默认为200
+    max-threads: 800
+    # Tomcat启动初始化的线程数，默认值25
+    min-spare-threads: 30
+
+# spring配置
+spring:
+  # 模板引擎
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    # 禁用缓存
+    cache: false
+  profiles:
+    active: devdb
+  #redis缓存
+  redis:
+    host: 10.43.164.42
+    port: 6379
+    timeout: 30000
+    password: banana
+    pool:
+      max-active: 8
+      min-idle: 0
+      max-idle: 8
+      max-wait: -1
+  session:
+    store-type: redis
+  #热部署
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java
+      exclude: WEB-INF/**
+
+# MyBatis
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.asiainfo
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  # 加载全局的配置文件
+  configLocation: classpath:conf/mybatis-config.xml
+
+# 设置指定抱的日志配置
+logging:
+  config: classpath:conf/logback-spring.xml
+  level:
+    com.asiainfo: debug
+    org.springframework: WARN
+    org.spring.springboot.dao: debug
+
+# PageHelper分页插件
+pagehelper:
+  helperDialect: postgresql
+  reasonable: true
+  supportMethodsArguments: false
+  params: count=countSql
+  offsetAsPageNum: true
+  rowBoundsWithCount: true
+

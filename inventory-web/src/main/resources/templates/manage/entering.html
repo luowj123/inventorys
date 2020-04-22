@@ -1,0 +1,931 @@
+<!--
+ * @Descripttion: 手工录入
+ * @Author: chenpei<chenpei@asiainfo.com>
+ * @Date: 2020-04-16 09:27:00
+ * @LastEditTime: 2020-04-20 17:15:34
+ -->
+
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+
+<head th:include="include :: header"></head>
+<style>
+  .search-collapse {
+    min-height: 95%;
+  }
+
+  .layui-tab-content {
+    float: left;
+    width: 100%;
+  }
+
+  .layui-tab-content .layui-form-label {
+    width: 120px;
+    text-align: right;
+  }
+
+  .langLable .layui-form-label {
+    width: 200px;
+  }
+
+  .layui-tab {
+    margin-top: 0;
+  }
+
+  .batchImport {
+    position: absolute;
+    right: 12px;
+    z-index: 12;
+  }
+
+  .button-group {
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>
+
+<body class="gray-bg">
+  <div class="container-div ui-layout-center">
+    <div class="row">
+      <div class="col-sm-12 search-collapse">
+        <button type="button" class="layui-btn layui-btn-normal batchImport"
+          onclick="entering.batchImport()">批量导入</button>
+        <div class="layui-tab layui-tab-brief" lay-filter="enteringTab">
+          <ul class="layui-tab-title">
+            <li class="layui-this">系统</li>
+            <li>数据库</li>
+            <li>表</li>
+            <li>字段</li>
+            <li>文件</li>
+            <li>接口</li>
+            <li>外部数据</li>
+          </ul>
+          <div class="layui-tab-content">
+            <!-- 系统录入 -->
+            <div class="layui-tab-item layui-show">
+              <form class="layui-form langLable">
+                <input name="model" value="systemInfo" style="display: none;" />
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">省份(集团部门、专业公司):</label>
+                  <div class="layui-input-inline">
+                    <input name="provinceName" type="text" class="layui-input" placeholder="请输入" value="四川电信" readonly>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统盘点责任部门组织层次:</label>
+                  <div class="layui-input-inline">
+                    <select name="deptPiLev">
+                      <option>--请选择--</option>
+                      <option>集团部门</option>
+                      <option>省公司</option>
+                      <option>集团专业公司</option>
+                      <option>省管专业分公司</option>
+                      <option>地市公司</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统名称:</label>
+                  <div class="layui-input-inline">
+                    <input name="praSystemName" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">子系统名称:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemName" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统唯一标识:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemPk" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统简称:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemAbbreviation" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统简介:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemContext" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统分类:</label>
+                  <div class="layui-input-inline">
+                    <select name="systemType">
+                      <option>--请选择--</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统承建部门:</label>
+                  <div class="layui-input-inline">
+                    <select name="systemDeptBuild">
+                      <option>--请选择--</option>
+                      <option>企信部</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统管理部门:</label>
+                  <div class="layui-input-inline">
+                    <select name="systemDeptManag">
+                      <option>--请选择--</option>
+                      <option>企信部</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统管理负责人:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemManager" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统管理负责人联系电话:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemManagerPhone" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统运营部门:</label>
+                  <div class="layui-input-inline">
+                    <select name="systemDeptOper">
+                      <option>--请选择--</option>
+                      <option>企信部</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统运营负责人:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemOperator" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统运营负责人联系电话:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemOperatorPhone" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">承建厂商:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemFirmBuild" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统使用部门:</label>
+                  <div class="layui-input-inline">
+                    <select name="systemDeptUse">
+                      <option>--请选择--</option>
+                      <option>企信部</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统盘点责任部门:</label>
+                  <div class="layui-input-inline">
+                    <select name="systemDeptStock">
+                      <option>--请选择--</option>
+                      <option>企信部</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统盘点负责人:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemStockist" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统盘点负责人联系电话:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemStockistPhone" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统IP地址:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemIpAddress" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统功能类型:</label>
+                  <div class="layui-input-inline">
+                    <select name="systemFuncType">
+                      <option>--请选择--</option>
+                      <option>数据+功能型模块</option>
+                      <option>纯数据型系统</option>
+                      <option>纯功能型系统</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">存储方式:</label>
+                  <div class="layui-input-inline">
+                    <select name="systemStorage">
+                      <option>--请选择--</option>
+                      <option>文件类型数据+数据库类型模块</option>
+                      <option>数据库类型数据</option>
+                      <option>文件类型数据</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统数据应用情况:</label>
+                  <div class="layui-input-inline">
+                    <input name="dataApplication" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统上线时间:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemUptime" type="text" class="layui-input time-input" data-type="year"
+                      data-format="yyyy" placeholder="请选择" readonly>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统工程批复信息:</label>
+                  <div class="layui-input-inline">
+                    <input name="reply" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统预计下线时间:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemReDwTime" type="text" class="layui-input time-input" data-type="year"
+                      data-format="yyyy" placeholder="请选择" readonly>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">本系统生成的数据:</label>
+                  <div class="layui-input-inline">
+                    <input name="systemData" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">从其他系统采集的数据:</label>
+                  <div class="layui-input-inline">
+                    <input name="collectionData" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">向其他系统提供的数据:</label>
+                  <div class="layui-input-inline">
+                    <input name="dataToOtherSys" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">系统重要数据资产:</label>
+                  <div class="layui-input-inline">
+                    <input name="importData" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">入省大数据平台的数据:</label>
+                  <div class="layui-input-inline">
+                    <input name="inProvinceData" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">入集团大数据平台的数据:</label>
+                  <div class="layui-input-inline">
+                    <input name="inBlocData" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">是否含敏感字段:</label>
+                  <div class="layui-input-inline">
+                    <select name="includeSensitiveField">
+                      <option>--请选择--</option>
+                      <option value="1">是</option>
+                      <option value="0">否</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">主要敏感字段:</label>
+                  <div class="layui-input-inline">
+                    <input name="sensitiveField" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">是否购置外部数据:</label>
+                  <div class="layui-input-inline">
+                    <select name="externalData">
+                      <option>--请选择--</option>
+                      <option value="1">是</option>
+                      <option value="0">否</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">外部数据种类:</label>
+                  <div class="layui-input-inline">
+                    <select name="externalDataType">
+                      <option>--请选择--</option>
+                      <option value="1">a</option>
+                      <option value="0">b</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12 button-group">
+                  <button type="button" class="layui-btn" lay-submit lay-filter="system">提交审核</button>
+                </div>
+              </form>
+            </div>
+            <!-- 数据库录入 -->
+            <div class="layui-tab-item">
+              <form class="layui-form">
+                <input name="model" value="databaseInfo" style="display: none;" />
+                <input type="text" name="systemId" id="databaseInfoSystemId" class="hide">
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">归属系统:</label>
+                  <div class="layui-input-inline">
+                    <input id="databaseSystemName" name="systemName" type="text" class="layui-input pr20"
+                      placeholder="请选择" readonly onclick="entering.getSystemName('database')">
+                    <span class="fa fa-search inputSearch" onclick="entering.getSystemName('database')"></span>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据库类型:</label>
+                  <div class="layui-input-inline">
+                    <select name="databaseType">
+                      <option>--请选择--</option>
+                      <option>ORACLE</option>
+                      <option>MYSQL</option>
+                      <option>DB2</option>
+                      <option>SQLSERVER</option>
+                      <option>HIVE</option>
+                      <option>HBASE</option>
+                      <option>GP</option>
+                      <option>PG</option>
+                      <option>其他</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据库IP:</label>
+                  <div class="layui-input-inline">
+                    <input name="databaseIp" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据库名称:</label>
+                  <div class="layui-input-inline">
+                    <input name="databaseName" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据库版本:</label>
+                  <div class="layui-input-inline">
+                    <input name="databaseVersion" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">端口:</label>
+                  <div class="layui-input-inline">
+                    <input name="datebasePort" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据库容量（G）:</label>
+                  <div class="layui-input-inline">
+                    <input name="databaseCapacity" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据存储目录:</label>
+                  <div class="layui-input-inline">
+                    <input name="storageAddress" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">集群模式:</label>
+                  <div class="layui-input-inline">
+                    <select name="clusterMode">
+                      <option>--请选择--</option>
+                      <option value="1">是</option>
+                      <option value="0">否</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12 button-group">
+                  <button type="button" class="layui-btn" lay-submit lay-filter="databaseInfo">提交审核</button>
+                </div>
+              </form>
+            </div>
+            <!-- 表录入 -->
+            <div class="layui-tab-item">
+              <form class="layui-form outherList">
+                <input name="model" value="tableInfo" style="display: none;" />
+                <input type="text" name="systemId" id="tableInfoSystemId" class="hide">
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">归属系统:</label>
+                  <div class="layui-input-inline">
+                    <input id="tableInfoSystemName" name="systemName" type="text" class="layui-input pr20"
+                      placeholder="请选择" readonly onclick="entering.getSystemName('tableInfo')">
+                    <span class="fa fa-search inputSearch" onclick="entering.getSystemName('tableInfo')"></span>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据库IP:</label>
+                  <div class="layui-input-inline">
+                    <div class="layui-input-inline">
+                      <input name="databaseIp" type="text" class="layui-input" placeholder="请输入">
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据库名称:</label>
+                  <div class="layui-input-inline">
+                    <div class="layui-input-inline">
+                      <input name="databaseName" type="text" class="layui-input" placeholder="请输入">
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据库用户名:</label>
+                  <div class="layui-input-inline">
+                    <input name="databaseUser" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">表英文名:</label>
+                  <div class="layui-input-inline">
+                    <input name="tableName" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">表中文名:</label>
+                  <div class="layui-input-inline">
+                    <input name="tableCname" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">表所属主题域分类:</label>
+                  <div class="layui-input-inline">
+                    <select name="tableTheme">
+                      <option>--请选择--</option>
+                      <option value="1">大类</option>
+                      <option value="2">小类</option>
+                      <option value="3">细项</option>
+                      <option value="4">其它</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">表大小(MB):</label>
+                  <div class="layui-input-inline">
+                    <input name="tableSize" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">存储时长（天）:</label>
+                  <div class="layui-input-inline">
+                    <input name="storageTime" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12">
+                  <label class="layui-form-label">表简介:</label>
+                  <div class="layui-input-inline">
+                    <input name="tableInformation" class="layui-input form-textarea" placeholder="请输入" />
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12 button-group">
+                  <button type="button" class="layui-btn" lay-submit lay-filter="tableInfo">提交审核</button>
+                </div>
+              </form>
+            </div>
+            <!-- 字段录入 -->
+            <div class="layui-tab-item">
+              <form class="layui-form outherList">
+                <input name="model" value="tableFiledInfo" style="display: none;" />
+                <input type="text" name="systemId" id="tableFiledInfoSystemId" class="hide">
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">归属系统:</label>
+                  <div class="layui-input-inline">
+                    <input id="tableFiledInfoSystemName" name="systemName" type="text" class="layui-input pr20"
+                      placeholder="请选择" readonly onclick="entering.getSystemName('tableFiledInfo')">
+                    <span class="fa fa-search inputSearch" onclick="entering.getSystemName('tableFiledInfo')"></span>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <input name="tableId" value="1" style="display: none;" />
+                  <label class="layui-form-label">数据库IP:</label>
+                  <div class="layui-input-inline">
+                    <div class="layui-input-inline">
+                      <input name="databaseIp" type="text" class="layui-input" placeholder="请输入">
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据库名称:</label>
+                  <div class="layui-input-inline">
+                    <div class="layui-input-inline">
+                      <input name="databaseName" type="text" class="layui-input" placeholder="请输入">
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">数据库用户名:</label>
+                  <div class="layui-input-inline">
+                    <input name="databaseUser" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">表英文名:</label>
+                  <div class="layui-input-inline">
+                    <div class="layui-input-inline">
+                      <input name="tableName" type="text" class="layui-input" placeholder="请输入">
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">字段英文名:</label>
+                  <div class="layui-input-inline">
+                    <input name="fieldName" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">字段中文名:</label>
+                  <div class="layui-input-inline">
+                    <input name="fieldCname" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">字段类型:</label>
+                  <div class="layui-input-inline">
+                    <select name="fieldType">
+                      <option>--请选择--</option>
+                      <option value="1">字符串</option>
+                      <option value="2">数字</option>
+                      <option value="3">时间</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">字段分类:</label>
+                  <div class="layui-input-inline">
+                    <select name="fieldCate">
+                      <option>--请选择--</option>
+                      <option value="1">实例</option>
+                      <option value="2">属性</option>
+                      <option value="3">标识</option>
+                      <option value="4">指标</option>
+                      <option value="5">维度</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">是否主键:</label>
+                  <div class="layui-input-inline">
+                    <select name="fieldPrimary">
+                      <option value="1">是</option>
+                      <option value="0">否</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">是否可空:</label>
+                  <div class="layui-input-inline">
+                    <select name="fieldNull">
+                      <option value="1">是</option>
+                      <option value="0">否</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">是否外键:</label>
+                  <div class="layui-input-inline">
+                    <select name="fieldForeign">
+                      <option value="1">是</option>
+                      <option value="0">否</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">外键表英文名:</label>
+                  <div class="layui-input-inline">
+                    <div class="layui-input-inline">
+                      <input name="foreineTableName" type="text" class="layui-input" placeholder="请输入">
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">参照主数据:</label>
+                  <div class="layui-input-inline">
+                    <input name="referData" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">安全等级:</label>
+                  <div class="layui-input-inline">
+                    <select name="securityLevel">
+                      <option>--请选择--</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12">
+                  <label class="layui-form-label">业务描述:</label>
+                  <div class="layui-input-inline">
+                    <input name="businessDesc" class="layui-input form-textarea" placeholder="请输入" />
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12">
+                  <label class="layui-form-label">字段备注:</label>
+                  <div class="layui-input-inline">
+                    <input name="fieldContext" class="layui-input form-textarea" placeholder="请输入" />
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12 button-group">
+                  <button type="button" class="layui-btn" lay-submit lay-filter="tableFiledInfo">提交审核</button>
+                </div>
+              </form>
+            </div>
+            <!-- 文件 -->
+            <div class="layui-tab-item">
+              <form class="layui-form outherList">
+                <input name="model" value="fileInfo" style="display: none;" />
+                <input type="text" name="systemId" id="fileInfoSystemId" class="hide">
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">归属系统:</label>
+                  <div class="layui-input-inline">
+                    <input id="fileInfoSystemName" name="systemName" type="text" class="layui-input pr20"
+                      placeholder="请选择" readonly onclick="entering.getSystemName('fileInfo')">
+                    <span class="fa fa-search inputSearch" onclick="entering.getSystemName('fileInfo')"></span>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">IP地址:</label>
+                  <div class="layui-input-inline">
+                    <input name="fileIp" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">文件英文名:</label>
+                  <div class="layui-input-inline">
+                    <input name="fileName" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">文件中文名:</label>
+                  <div class="layui-input-inline">
+                    <input name="fileCname" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">文件类型:</label>
+                  <div class="layui-input-inline">
+                    <select name="fileType">
+                      <option>--请选择--</option>
+                      <option value="1">图片文件</option>
+                      <option value="2">视频文件</option>
+                      <option value="3">音频文件</option>
+                      <option value="4">日志文件</option>
+                      <option value="5">配置文件</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">文件所属主题域:</label>
+                  <div class="layui-input-inline">
+                    <select name="fileTheme">
+                      <option>--请选择--</option>
+                      <option value="1">大类</option>
+                      <option value="2">小类</option>
+                      <option value="3">细项</option>
+                      <option value="4">其它</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">存储周期:</label>
+                  <div class="layui-input-inline">
+                    <input name="storageTime" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-4">
+                  <label class="layui-form-label">目录存储（M）:</label>
+                  <div class="layui-input-inline">
+                    <input name="themeSize" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12">
+                  <label class="layui-form-label">目录:</label>
+                  <div class="layui-input-inline">
+                    <input name="fileAddress" class="layui-input form-textarea" placeholder="请输入" />
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12">
+                  <label class="layui-form-label">文件简介:</label>
+                  <div class="layui-input-inline">
+                    <input class="layui-input form-textarea" name="fileContext" placeholder="请输入" />
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12 button-group">
+                  <button type="button" class="layui-btn" lay-submit lay-filter="fileInfo">提交审核</button>
+                </div>
+              </form>
+            </div>
+            <!-- 接口 -->
+            <div class="layui-tab-item">
+              <form class="layui-form langLable">
+                <input name="model" value="introductionInfo" style="display: none;" />
+                <input type="text" name="systemId" id="introductionInfoSystemId" class="hide" />
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">归属系统:</label>
+                  <div class="layui-input-inline">
+                    <input id="introductionInfoSystemName" name="systemName" type="text" class="layui-input pr20"
+                      placeholder="请选择" readonly onclick="entering.getSystemName('introductionInfo')">
+                    <span class="fa fa-search inputSearch" onclick="entering.getSystemName('introductionInfo')"></span>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">对接系统:</label>
+                  <input name="dockSystemName" value="111" style="display: none;" />
+                  <div class="layui-input-inline">
+                    <input name="dockSystemId" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">接口类型:</label>
+                  <div class="layui-input-inline">
+                    <select name="intType">
+                      <option>--请选择--</option>
+                      <option value="0">数据型接口</option>
+                      <option value="1">功能型接口</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">本端接口地址:</label>
+                  <div class="layui-input-inline">
+                    <input name="localIntAddress" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">对端接口地址:</label>
+                  <div class="layui-input-inline">
+                    <input name="romoteIntAddress" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">接口发布域:</label>
+                  <div class="layui-input-inline">
+                    <select name="intTheme">
+                      <option>--请选择--</option>
+                      <option value="0">CN2</option>
+                      <option value="1">DCN</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">传输方向:</label>
+                  <div class="layui-input-inline">
+                    <select name="transDirection">
+                      <option>--请选择--</option>
+                      <option value="1">流出</option>
+                      <option value="2">流入</option>
+                      <option value="3">不限定</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">接口名称:</label>
+                  <div class="layui-input-inline">
+                    <input name="intName" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">接口协议类型:</label>
+                  <div class="layui-input-inline">
+                    <select name="intContractType">
+                      <option>--请选择--</option>
+                      <option value="1">FTP</option>
+                      <option value="2">DBLINK</option>
+                      <option value="3">API</option>
+                      <option value="4">OCI</option>
+                      <option value="5">实时消息</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">接口传送频率:</label>
+                  <div class="layui-input-inline">
+                    <select name="intTransFreq">
+                      <option>--请选择--</option>
+                      <option value="1">日</option>
+                      <option value="2">周</option>
+                      <option value="3">月</option>
+                      <option value="4">年</option>
+                      <option value="5">实时</option>
+                      <option value="6">分钟</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">涉及本端系统的表或文件名:</label>
+                  <div class="layui-input-inline">
+                    <input name="tableFile" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12">
+                  <label class="layui-form-label">接口交互描述:</label>
+                  <div class="layui-input-inline">
+                    <input name="intInteractContext" class="layui-input form-textarea" placeholder="请输入" />
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12 button-group">
+                  <button type="button" class="layui-btn" lay-submit lay-filter="introductionInfo">提交审核</button>
+                </div>
+              </form>
+            </div>
+            <!-- 外部数据 -->
+            <div class="layui-tab-item">
+              <form class="layui-form langLable">
+                <input name="model" value="extraDataInfo" style="display: none;" />
+                <input type="text" name="systemId" id="extraDataInfoSystemId" class="hide">
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">归属系统:</label>
+                  <div class="layui-input-inline">
+                    <input id="extraDataInfoSystemName" name="systemName" type="text" class="layui-input pr20"
+                      placeholder="请选择" readonly onclick="entering.getSystemName('extraDataInfo')">
+                    <span class="fa fa-search inputSearch" onclick="entering.getSystemName('extraDataInfo')"></span>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">外部数据种类:</label>
+                  <div class="layui-input-inline">
+                    <input name="extraType" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">外部数据提供机构:</label>
+                  <div class="layui-input-inline">
+                    <input name="extraProvide" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">外部数据采购周期（天）:</label>
+                  <div class="layui-input-inline">
+                    <input name="extraCollect" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">外部数据更新频率（天）:</label>
+                  <div class="layui-input-inline">
+                    <input name="extraUpdata" type="text" class="layui-input" placeholder="请输入">
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-6">
+                  <label class="layui-form-label">合同到期时间:</label>
+                  <div class="layui-input-inline">
+                    <input name="expirTime" type="text" class="layui-input time-input" placeholder="请选择" readonly>
+                  </div>
+                </div>
+                <div class="layui-inline col-sm-12 button-group">
+                  <button type="button" class="layui-btn" lay-submit lay-filter="extraDataInfo">提交审核</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:include="include :: footer"></div>
+  <script th:src="@{/js/manage/entering.js}"></script>
+  <script th:src="@{/js/toolMethod.js}"></script>
+</body>
+
+
+<!-- 系统弹框 -->
+<div id="systemBox" class="modalBox hide">
+  <form id="systemForm" class="layui-form">
+    <div class="layui-inline">
+      <label class="layui-form-label">系统名:</label>
+      <div class="layui-input-inline">
+        <input name="systemId" type="text" class="layui-input" placeholder="请输入">
+      </div>
+    </div>
+    <div class="layui-inline button-group">
+      <button type="button" class="layui-btn" lay-submit lay-filter="sysSelect">
+        <span class="fa fa-search"></span> 查询
+      </button>
+    </div>
+  </form>
+  <table id="systemList"></table>
+</div>
+
+</html>

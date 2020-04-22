@@ -1,0 +1,85 @@
+/*
+ * @Descripttion: 首页
+ * @Author: chenpei<chenpei@asiainfo.com>
+ * @Date: 2020-04-20 17:52:48
+ * @LastEditTime: 2020-04-21 15:18:28
+ */
+
+.container-fluid {
+  padding: 10px;
+}
+
+.mainBox {
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  float: left;
+  overflow: hidden;
+}
+
+.main-line {
+  padding: 14px 20px;
+  border-bottom: 1px solid #eeeeee;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.title {
+  vertical-align: middle;
+}
+
+.progress-box {
+  display: inline-block;
+  width: 20%;
+  margin-left: 15px;
+  vertical-align: middle;
+}
+
+.classEchart {
+  height: 300px;
+}
+
+.classpie {
+  display: inline-block;
+  width: 19%;
+  height: 100%;
+  margin: 0 2px;
+}
+
+.content-body {
+  width: 33.33%;
+  float: left;
+}
+
+.content-header {
+  background: #e4f5fb;
+  padding: 14px 10px;
+}
+
+.body-box {
+  border-right: 1px solid #e6e6e6;
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.body-box:last-child {
+  border-right: none;
+}
+
+.body-box>p:nth-of-type(1) {
+  font-size: 28px;
+  color: #1e9fff;
+  padding: 15px 0;
+}
+
+.col-noPd {
+  padding-left: 0;
+  padding-right: 10px;
+}
+
+.col-row .col-noPd:last-child {
+  padding-right: 0;
+}

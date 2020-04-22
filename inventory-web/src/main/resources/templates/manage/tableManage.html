@@ -1,0 +1,83 @@
+<!--
+ * @Descripttion: 表管理
+ * @Author: chenpei<chenpei@asiainfo.com>
+ * @Date: 2020-04-16 19:20:40
+ * @LastEditTime: 2020-04-21 21:06:42
+ -->
+
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+
+<head th:include="include :: header"></head>
+
+<body class="gray-bg">
+  <div class="container-div ui-layout-center">
+    <div class="row">
+      <div class="col-sm-12 search-collapse">
+        <form class="layui-form">
+          <input type="text" name="databaseId" id="databaseId" class="hide">
+          <div class="layui-inline">
+            <label class="layui-form-label">数据库名称:</label>
+            <div class="layui-input-inline">
+              <input name="databaseName" id="databaseName" type="text" class="layui-input" placeholder="请选择" readonly>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">数据库用户名:</label>
+            <div class="layui-input-inline">
+              <input name="" type="text" class="layui-input" placeholder="请输入">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">表名:</label>
+            <div class="layui-input-inline">
+              <input name="" type="text" class="layui-input" placeholder="请输入">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">资产状态:</label>
+            <div class="layui-input-inline">
+              <select name="">
+                <option>全部</option>
+                <option>待审核</option>
+                <option>审核通过</option>
+                <option>审核不通过</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline button-group">
+            <button type="button" class="layui-btn" lay-submit lay-filter="tableManageSearch">查询</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-12 select-table table-striped">
+        <table id="tableManageTable"></table>
+      </div>
+    </div>
+  </div>
+  <div th:include="include :: footer"></div>
+  <script th:src="@{/js/manage/tableManage.js}"></script>
+</body>
+
+
+<!-- 系统弹框 -->
+<div id="systemBox" class="modalBox hide">
+  <form id="systemForm" class="layui-form">
+    <div class="layui-inline">
+      <label class="layui-form-label">系统名:</label>
+      <div class="layui-input-inline">
+        <input name="systemId" type="text" class="layui-input" placeholder="请输入">
+      </div>
+    </div>
+    <div class="layui-inline button-group">
+      <button type="button" class="layui-btn" lay-submit lay-filter="sysSelect">
+        <span class="fa fa-search"></span> 查询
+      </button>
+    </div>
+  </form>
+  <table id="systemList"></table>
+</div>
+
+</html>

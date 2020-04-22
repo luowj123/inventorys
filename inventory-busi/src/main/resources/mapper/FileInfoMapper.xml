@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.busi.dao.IFileInfoDao">
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.asiainfo.busi.entity.FileInfo">
+	    <id column="file_id" jdbcType="INTEGER" property="fileId" />
+	    <result column="system_id" jdbcType="INTEGER" property="systemId" />
+	    <result column="system_name" jdbcType="VARCHAR" property="systemName" />
+	    <result column="file_ip" jdbcType="VARCHAR" property="fileIp" />
+	    <result column="file_address" jdbcType="VARCHAR" property="fileAddress" />
+	    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+	    <result column="file_cname" jdbcType="VARCHAR" property="fileCname" />
+	    <result column="file_context" jdbcType="VARCHAR" property="fileContext" />
+	    <result column="file_type" jdbcType="VARCHAR" property="fileType" />
+	    <result column="file_theme" jdbcType="VARCHAR" property="fileTheme" />
+	    <result column="storage_time" jdbcType="INTEGER" property="storageTime" />
+	    <result column="theme_size" jdbcType="INTEGER" property="themeSize" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<!-- 字段 -->
+	<sql id="Base_Column_List">
+		file_id, system_id, system_name, file_ip, file_address, file_name, file_cname, file_context, 
+	    file_type, file_theme, storage_time, theme_size, create_by, create_time, update_by, 
+	    update_time
+	</sql>
+
+	<!-- 分页查询 -->
+	<select id="selectByPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from td_file_info
+		<include refid="Base_Where_List" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+		select 
+	    <include refid="Base_Column_List" />
+	    from td_file_info
+    	where file_id = #{fileId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="Map">
+		insert into td_file_info (file_id, system_id, system_name, 
+	      file_ip, file_address, file_name, 
+	      file_cname, file_context, file_type, 
+	      file_theme, storage_time, theme_size, 
+	      create_by, create_time, update_by, 
+	      update_time)
+	    values (nextval('td_file_info_file_id_seq'), #{systemId,jdbcType=INTEGER}, #{systemName,jdbcType=VARCHAR}, 
+	      #{fileIp,jdbcType=VARCHAR}, #{fileAddress,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+	      #{fileCname,jdbcType=VARCHAR}, #{fileContext,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, 
+	      #{fileTheme,jdbcType=VARCHAR}, #{storageTime,jdbcType=INTEGER}, #{themeSize,jdbcType=INTEGER}, 
+	      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+	      #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<!-- 新增 -->
+	<insert id="insertList" parameterType="Map">
+		insert into td_system_info (file_id, system_id, system_name, 
+	      file_ip, file_address, file_name, 
+	      file_cname, file_context, file_type, 
+	      file_theme, storage_time, theme_size, 
+	      create_by, create_time, update_by, 
+	      update_time)
+    	values 
+    	<foreach collection="list" item="data" separator=",">
+    	(nextval('td_file_info_file_id_seq'), #{data.systemId,jdbcType=INTEGER}, #{data.systemName,jdbcType=VARCHAR}, 
+	      #{data.fileIp,jdbcType=VARCHAR}, #{data.fileAddress,jdbcType=VARCHAR}, #{data.fileName,jdbcType=VARCHAR}, 
+	      #{data.fileCname,jdbcType=VARCHAR}, #{data.fileContext,jdbcType=VARCHAR}, #{data.fileType,jdbcType=VARCHAR}, 
+	      #{data.fileTheme,jdbcType=VARCHAR}, #{data.storageTime,jdbcType=INTEGER}, #{data.themeSize,jdbcType=INTEGER}, 
+	      #{data.createBy,jdbcType=VARCHAR}, #{data.createTime,jdbcType=TIMESTAMP}, #{data.updateBy,jdbcType=VARCHAR}, 
+	      #{data.updateTime,jdbcType=TIMESTAMP}
+      	)
+      	</foreach>
+      
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="com.asiainfo.busi.entity.FileInfo">
+		update td_file_info
+	    <set>
+	      <if test="systemId != null">
+	        system_id = #{systemId,jdbcType=INTEGER},
+	      </if>
+	      <if test="systemName != null">
+	        system_name = #{systemName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fileIp != null">
+	        file_ip = #{fileIp,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fileAddress != null">
+	        file_address = #{fileAddress,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fileName != null">
+	        file_name = #{fileName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fileCname != null">
+	        file_cname = #{fileCname,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fileContext != null">
+	        file_context = #{fileContext,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fileType != null">
+	        file_type = #{fileType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fileTheme != null">
+	        file_theme = #{fileTheme,jdbcType=VARCHAR},
+	      </if>
+	      <if test="storageTime != null">
+	        storage_time = #{storageTime,jdbcType=INTEGER},
+	      </if>
+	      <if test="themeSize != null">
+	        theme_size = #{themeSize,jdbcType=INTEGER},
+	      </if>
+	      <if test="createBy != null">
+	        create_by = #{createBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createTime != null">
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="updateBy != null">
+	        update_by = #{updateBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="updateTime != null">
+	        update_time = #{updateTime,jdbcType=TIMESTAMP},
+	      </if>
+	    </set>
+	    where file_id = #{fileId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    	delete from td_file_info
+    		where file_id = #{fileId,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 过滤条件 -->
+	<sql id="Base_Where_List">
+		<where>
+			1 = 1
+			<if test="systemId != null">
+		        system_id = #{systemId,jdbcType=INTEGER}
+		      </if>
+		      <if test="systemName != null">
+		        system_name = #{systemName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fileIp != null">
+		        file_ip = #{fileIp,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fileAddress != null">
+		        file_address = #{fileAddress,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fileName != null">
+		        file_name = #{fileName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fileCname != null">
+		        file_cname = #{fileCname,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fileContext != null">
+		        file_context = #{fileContext,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fileType != null">
+		        file_type = #{fileType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fileTheme != null">
+		        file_theme = #{fileTheme,jdbcType=VARCHAR}
+		      </if>
+		      <if test="storageTime != null">
+		        storage_time = #{storageTime,jdbcType=INTEGER}
+		      </if>
+		      <if test="themeSize != null">
+		        theme_size = #{themeSize,jdbcType=INTEGER}
+		      </if>
+		      <if test="createBy != null">
+		        create_by = #{createBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createTime != null">
+		        create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="updateBy != null">
+		        update_by = #{updateBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="updateTime != null">
+		        update_time = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		 </where>
+	</sql>
+
+</mapper>

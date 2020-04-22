@@ -1,0 +1,96 @@
+<!--
+ * @Descripttion: 数据库管理
+ * @Author: chenpei<chenpei@asiainfo.com>
+ * @Date: 2020-04-16 17:08:11
+ * @LastEditTime: 2020-04-21 18:55:04
+ -->
+
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+
+<head th:include="include :: header"></head>
+
+<body class="gray-bg">
+  <div class="container-div ui-layout-center">
+    <div class="row">
+      <div class="col-sm-12 search-collapse">
+        <form class="layui-form databaseForm">
+          <input type="text" name="systemId" id="systemId" class="hide">
+          <div class="layui-inline">
+            <label class="layui-form-label">归属系统:</label>
+            <div class="layui-input-inline">
+              <input id="systemName" name="systemName" type="text" class="layui-input pr20" placeholder="请选择" readonly
+                onclick="databaseManage.getSystemName()">
+              <span class="fa fa-search inputSearch" onclick="databaseManage.getSystemName()"></span>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">数据库类型:</label>
+            <div class="layui-input-inline">
+              <select name="databaseType">
+                <option value="">全部</option>
+                <option value="ORACLE">ORACLE</option>
+                <option value="MYSQL">MYSQL</option>
+                <option value="DB2">DB2</option>
+                <option value="SQLSERVER">SQLSERVER</option>
+                <option value="HIVE">HIVE</option>
+                <option value="HBASE">HBASE</option>
+                <option value="GP">GP</option>
+                <option value="PG">PG</option>
+                <option value="other">其他</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">数据库名称:</label>
+            <div class="layui-input-inline">
+              <input name="databaseName" type="text" class="layui-input" placeholder="请输入">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">集群模式:</label>
+            <div class="layui-input-inline">
+              <select name="clusterMode">
+                <option value="">全部</option>
+                <option value="1">是</option>
+                <option value="0">否</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">资产状态:</label>
+            <div class="layui-input-inline">
+              <select name="assetState">
+                <option value="">全部</option>
+                <option value="0">待审核</option>
+                <option value="1">审核通过</option>
+                <option value="2">审核不通过</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline button-group">
+            <button type="button" class="layui-btn" lay-submit lay-filter="databaseSearch">查询</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+          </div>
+        </form>
+      </div>
+      <div class="btn-group-sm" id="toolbar" role="group">
+        <button type="button" class="layui-btn layui-btn-normal" onclick="databaseManage.batchImport()">
+          <i class="fa fa-download"></i> 批量导入
+        </button>
+        <button type="button" class="layui-btn" onclick="databaseManage.entering()">
+          <i class="fa fa-pencil-square-o"></i>
+          手工录入
+        </button>
+      </div>
+      <div class="col-sm-12 select-table table-striped">
+        <table id="databaseTable"></table>
+      </div>
+    </div>
+  </div>
+  <div th:include="include :: footer"></div>
+  <script th:src="@{/js/manage/databaseManage.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.busi.dao.IUserInfoDao">
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.asiainfo.busi.entity.UserInfo" >
+    	<result column="user_id" property="userId" jdbcType="INTEGER" />
+    	<result column="user_name" property="userName" jdbcType="VARCHAR" />
+    	<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    	<result column="create_time" property="createTime" jdbcType="DATE" />
+    	<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    	<result column="update_time" property="updateTime" jdbcType="DATE" />
+	</resultMap>
+  
+  	<!-- 字段 -->
+	<sql id="Base_Column_List">
+   	 	user_id, user_name, create_by, create_time, update_by, update_time
+  	</sql>
+  	
+  	<!-- 分页查询 -->
+  	<select id = "selectByPage" parameterType="Map" resultMap="BaseResultMap">
+  		select
+  			<include refid="Base_Column_List" />
+  			from td_user_info
+  			<include refid="Base_Where_List" />
+  	</select>
+  	
+	<!-- 查询条数 -->
+  	<select id = "selectByCount" parameterType="Map" resultType="java.lang.Integer">
+  		select count(1)
+  			from td_user_info
+  			<include refid="Base_Where_List" />
+  	</select>
+  	
+  	<!-- 列表查询 -->
+  	<select id = "selectByList" parameterType="Map" resultMap="BaseResultMap">
+  		select 
+  			<include refid="Base_Column_List" />
+  			from td_user_info
+  			<include refid="Base_Where_List" />
+  	</select>
+  	
+	<!-- 根据ID查询 -->
+  	<select id = "selectById" parameterType="String" resultMap="BaseResultMap">
+  		select 
+  			<include refid="Base_Column_List" />
+  			from td_user_info
+  			where user_id = #{userInfo.user_id,jdbcType=INTEGER}
+  	</select>
+  	
+  	<!-- 新增 -->
+	<insert id="insert" parameterType="com.asiainfo.busi.entity.UserInfo">
+		insert into td_user_info (user_id, user_name, create_by, create_time, update_by, update_time)
+    	values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+    		#{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=DATE}, 
+    		#{updateBy,jdbcType=INTEGER})
+  	</insert>
+  
+	<!-- 修改 -->
+	<update id="update" parameterType="com.asiainfo.busi.entity.UserInfo">
+    	update td_user_info
+    	<set>
+      		<include refid="Base_Where_List" />
+    	</set>
+    	where user_id = #{userInfo.userId,jdbcType=VARCHAR}
+  	</update>
+  	
+  	<!-- 删除 -->
+	<delete id="delete" parameterType="com.asiainfo.busi.entity.UserInfo">
+    	delete from td_user_info
+    		<include refid="Base_Where_List" />
+  </delete>
+  
+  	<!-- 过滤条件 -->
+	<sql id="Base_Where_List">
+		<where>
+			1 = 1
+			<if test="userId != null" >
+				and user_id = #{userId,jdbcType=INTEGER}
+			</if>
+			<if test="userName != null" >
+				and userName = #{user_name,jdbcType=VARCHAR}
+			</if>
+			<if test="createBy != null" >
+				and create_by = #{createBy,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null" >
+				and create_time = #{createTime,jdbcType=DATE}
+			</if>
+			<if test="updateBy != null" >
+				and update_by = #{updateBy,jdbcType=VARCHAR}
+			</if>
+			<if test="updateTime != null" >
+				and update_time = #{updateTime,jdbcType=DATE}
+			</if>
+		</where>
+	</sql>
+
+</mapper>

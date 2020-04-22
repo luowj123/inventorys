@@ -1,0 +1,97 @@
+<!--
+ * @Descripttion: 维表管理
+ * @Author: chenpei<chenpei@asiainfo.com>
+ * @Date: 2020-04-20 10:13:18
+ * @LastEditTime: 2020-04-21 11:14:24
+ -->
+
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+
+<head th:include="include :: header"></head>
+<style>
+  #addDim .layui-form-label {
+    width: 60px;
+  }
+
+  #addDim .layui-input-block {
+    margin-left: 62px;
+  }
+</style>
+
+<body class="gray-bg">
+  <div class="container-div ui-layout-center">
+    <div class="row">
+      <div class="col-sm-12 search-collapse">
+        <form class="layui-form dimListForm">
+          <input type="text" name="id" id="dimId" class="hide" />
+          <div class="layui-inline">
+            <label class="layui-form-label">维度:</label>
+            <div class="layui-input-inline">
+              <input name="name" type="text" id="dimName" class="layui-input pr20" placeholder="请选择" readonly
+                onclick="dimTable.chooseDim()">
+              <span class="fa fa-search inputSearch" onclick="dimTable.chooseDim()"></span>
+            </div>
+          </div>
+          <div class="layui-inline button-group">
+            <button type="button" class="layui-btn" lay-submit lay-filter="dimSearch">查询</button>
+          </div>
+        </form>
+      </div>
+      <div class="btn-group-sm" id="toolbar" role="group">
+        <button type="button" class="layui-btn layui-btn-normal" onclick="dimTable.addDimValue()">
+          <span class="fa fa-plus"></span> 添加维度值
+        </button>
+      </div>
+      <div class="col-sm-12 select-table table-striped">
+        <table id="dimListTable"></table>
+      </div>
+    </div>
+  </div>
+  <div th:include="include :: footer"></div>
+  <script th:src="@{/js/manage/dimTable.js}"></script>
+</body>
+
+
+<!-- 维度(pid=-1)查询弹框 -->
+<div id="dimSelect" class="modalBox hide">
+  <form id="dimSelectForm" class="layui-form">
+    <div class="layui-inline">
+      <label class="layui-form-label">维度名:</label>
+      <div class="layui-input-inline">
+        <input name="name" type="text" class="layui-input" placeholder="请输入">
+      </div>
+    </div>
+    <div class="layui-inline button-group">
+      <button type="button" class="layui-btn" lay-submit lay-filter="dimSelect">
+        <span class="fa fa-search"></span> 查询
+      </button>
+      <button type="button" class="layui-btn layui-btn-normal" onclick="dimTable.addDim()">
+        <span class="fa fa-plus"></span> 添加
+      </button>
+    </div>
+  </form>
+  <table id="dimList"></table>
+</div>
+
+
+<!-- 添加/更新维度名 维度值 -->
+<div id="addDim" class="modalBox hide">
+  <form id="addDimForm" class="layui-form">
+    <div class="layui-form-item">
+      <label class="layui-form-label dimLabel">维度名:</label>
+      <div class="layui-input-block">
+        <input name="name" type="text" class="layui-input" placeholder="请输入">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">备注:</label>
+      <div class="layui-input-block">
+        <input name="remark" type="text" class="layui-input" placeholder="请输入">
+      </div>
+    </div>
+  </form>
+</div>
+
+</html>

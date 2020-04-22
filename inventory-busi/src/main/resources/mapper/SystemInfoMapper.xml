@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.busi.dao.ISystemInfoDao">
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.asiainfo.busi.entity.SystemInfo">
+		 <id column="system_id" jdbcType="INTEGER" property="systemId" />
+	    <result column="province_name" jdbcType="VARCHAR" property="provinceName" />
+	    <result column="dept_pi_lev" jdbcType="VARCHAR" property="deptPiLev" />
+	    <result column="pra_system_name" jdbcType="VARCHAR" property="praSystemName" />
+	    <result column="system_name" jdbcType="VARCHAR" property="systemName" />
+	    <result column="system_pk" jdbcType="VARCHAR" property="systemPk" />
+	    <result column="system_abbreviation" jdbcType="VARCHAR" property="systemAbbreviation" />
+	    <result column="system_context" jdbcType="VARCHAR" property="systemContext" />
+	    <result column="system_type" jdbcType="VARCHAR" property="systemType" />
+	    <result column="system_dept_build" jdbcType="VARCHAR" property="systemDeptBuild" />
+	    <result column="system_dept_manag" jdbcType="VARCHAR" property="systemDeptManag" />
+	    <result column="system_manager" jdbcType="VARCHAR" property="systemManager" />
+	    <result column="system_manager_phone" jdbcType="VARCHAR" property="systemManagerPhone" />
+	    <result column="system_dept_oper" jdbcType="VARCHAR" property="systemDeptOper" />
+	    <result column="system_operator" jdbcType="VARCHAR" property="systemOperator" />
+	    <result column="system_operator_phone" jdbcType="VARCHAR" property="systemOperatorPhone" />
+	    <result column="system_firm_build" jdbcType="VARCHAR" property="systemFirmBuild" />
+	    <result column="system_dept_use" jdbcType="VARCHAR" property="systemDeptUse" />
+	    <result column="system_dept_stock" jdbcType="VARCHAR" property="systemDeptStock" />
+	    <result column="system_stockist" jdbcType="VARCHAR" property="systemStockist" />
+	    <result column="system_stockist_phone" jdbcType="VARCHAR" property="systemStockistPhone" />
+	    <result column="system_ip_address" jdbcType="VARCHAR" property="systemIpAddress" />
+	    <result column="system_func_type" jdbcType="VARCHAR" property="systemFuncType" />
+	    <result column="system_storage" jdbcType="VARCHAR" property="systemStorage" />
+	    <result column="data_application" jdbcType="VARCHAR" property="dataApplication" />
+	    <result column="system_uptime" jdbcType="VARCHAR" property="systemUptime" />
+	    <result column="reply" jdbcType="VARCHAR" property="reply" />
+	    <result column="system_re_dw_time" jdbcType="VARCHAR" property="systemReDwTime" />
+	    <result column="system_data" jdbcType="VARCHAR" property="systemData" />
+	    <result column="collection_data" jdbcType="VARCHAR" property="collectionData" />
+	    <result column="data_to_other_sys" jdbcType="VARCHAR" property="dataToOtherSys" />
+	    <result column="import_data" jdbcType="VARCHAR" property="importData" />
+	    <result column="in_province_data" jdbcType="VARCHAR" property="inProvinceData" />
+	    <result column="in_bloc_data" jdbcType="VARCHAR" property="inBlocData" />
+	    <result column="include_sensitive_field" jdbcType="VARCHAR" property="includeSensitiveField" />
+	    <result column="sensitive_field" jdbcType="VARCHAR" property="sensitiveField" />
+	    <result column="external_data" jdbcType="VARCHAR" property="externalData" />
+	    <result column="external_data_type" jdbcType="VARCHAR" property="externalDataType" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<!-- 字段 -->
+	<sql id="Base_Column_List">
+		system_id, province_name, dept_pi_lev, pra_system_name, system_name, system_pk, system_abbreviation, 
+	    system_context, system_type, system_dept_build, system_dept_manag, system_manager, 
+	    system_manager_phone, system_dept_oper, system_operator, system_operator_phone, system_firm_build, 
+	    system_dept_use, system_dept_stock, system_stockist, system_stockist_phone, system_ip_address, 
+	    system_func_type, system_storage, data_application, system_uptime, reply, system_re_dw_time, 
+	    system_data, collection_data, data_to_other_sys, import_data, in_province_data, in_bloc_data,  
+	    include_sensitive_field, sensitive_field, external_data, external_data_type, create_by, 
+	    create_time, update_by, update_time
+	</sql>
+
+	<!-- 分页查询 -->
+	<select id="selectByPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from td_system_info
+		<include refid="Base_Where_List" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+		select 
+	    <include refid="Base_Column_List" />
+	    from td_system_info
+	    where system_id = #{systemId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="Map">
+		insert into td_system_info (system_id, province_name, dept_pi_lev, 
+	      pra_system_name, system_name, system_pk, 
+	      system_abbreviation, system_context, system_type, 
+	      system_dept_build, system_dept_manag, system_manager, 
+	      system_manager_phone, system_dept_oper, system_operator, 
+	      system_operator_phone, system_firm_build, system_dept_use, 
+	      system_dept_stock, system_stockist, system_stockist_phone, 
+	      system_ip_address, system_func_type, system_storage, 
+	      data_application, system_uptime, reply, 
+	      system_re_dw_time, system_data, collection_data, 
+	      data_to_other_sys, import_data, in_province_data, 
+	      in_bloc_data, include_sensitive_field, sensitive_field, 
+	      external_data, external_data_type, create_by, 
+	      create_time, update_by, update_time)
+    	values (nextval('td_introduction_info_int_id_seq'), #{provinceName,jdbcType=VARCHAR}, #{deptPiLev,jdbcType=VARCHAR}, 
+	      #{praSystemName,jdbcType=VARCHAR}, #{systemName,jdbcType=VARCHAR}, #{systemPk,jdbcType=VARCHAR}, 
+	      #{systemAbbreviation,jdbcType=VARCHAR}, #{systemContext,jdbcType=VARCHAR}, #{systemType,jdbcType=VARCHAR}, 
+	      #{systemDeptBuild,jdbcType=VARCHAR}, #{systemDeptManag,jdbcType=VARCHAR}, #{systemManager,jdbcType=VARCHAR}, 
+	      #{systemManagerPhone,jdbcType=VARCHAR}, #{systemDeptOper,jdbcType=VARCHAR}, #{systemOperator,jdbcType=VARCHAR}, 
+	      #{systemOperatorPhone,jdbcType=VARCHAR}, #{systemFirmBuild,jdbcType=VARCHAR}, #{systemDeptUse,jdbcType=VARCHAR}, 
+	      #{systemDeptStock,jdbcType=VARCHAR}, #{systemStockist,jdbcType=VARCHAR}, #{systemStockistPhone,jdbcType=VARCHAR}, 
+	      #{systemIpAddress,jdbcType=VARCHAR}, #{systemFuncType,jdbcType=VARCHAR}, #{systemStorage,jdbcType=VARCHAR}, 
+	      #{dataApplication,jdbcType=VARCHAR}, #{systemUptime,jdbcType=VARCHAR}, #{reply,jdbcType=VARCHAR}, 
+	      #{systemReDwTime,jdbcType=VARCHAR}, #{systemData,jdbcType=VARCHAR}, #{collectionData,jdbcType=VARCHAR}, 
+	      #{dataToOtherSys,jdbcType=VARCHAR}, #{importData,jdbcType=VARCHAR}, #{inProvinceData,jdbcType=VARCHAR}, 
+	      #{inBlocData,jdbcType=VARCHAR}, #{includeSensitiveField,jdbcType=VARCHAR}, #{sensitiveField,jdbcType=VARCHAR}, 
+	      #{externalData,jdbcType=VARCHAR}, #{externalDataType,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+	      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+	</insert>
+	
+	<!-- 新增 -->
+	<insert id="insertList" parameterType="Map">
+		insert into td_system_info (system_id, province_name, dept_pi_lev, 
+	      pra_system_name, system_name, system_pk, 
+	      system_abbreviation, system_context, system_type, 
+	      system_dept_build, system_dept_manag, system_manager, 
+	      system_manager_phone, system_dept_oper, system_operator, 
+	      system_operator_phone, system_firm_build, system_dept_use, 
+	      system_dept_stock, system_stockist, system_stockist_phone, 
+	      system_ip_address, system_func_type, system_storage, 
+	      data_application, system_uptime, reply, 
+	      system_re_dw_time, system_data, collection_data, 
+	      data_to_other_sys, import_data, in_province_data, 
+	      in_bloc_data, include_sensitive_field, sensitive_field, 
+	      external_data, external_data_type, create_by, 
+	      create_time, update_by, update_time)
+    values 
+    	<foreach collection="list" item="data" separator=",">
+    	( (nextval('td_introduction_info_int_id_seq')), #{data.provinceName,jdbcType=VARCHAR}, #{data.deptPiLev,jdbcType=VARCHAR}, 
+	      #{data.praSystemName,jdbcType=VARCHAR}, #{data.systemName,jdbcType=VARCHAR}, #{data.systemPk,jdbcType=VARCHAR}, 
+	      #{data.systemAbbreviation,jdbcType=VARCHAR}, #{data.systemContext,jdbcType=VARCHAR}, #{data.systemType,jdbcType=VARCHAR}, 
+	      #{data.systemDeptBuild,jdbcType=VARCHAR}, #{data.systemDeptManag,jdbcType=VARCHAR}, #{data.systemManager,jdbcType=VARCHAR}, 
+	      #{data.systemManagerPhone,jdbcType=VARCHAR}, #{data.systemDeptOper,jdbcType=VARCHAR}, #{data.systemOperator,jdbcType=VARCHAR}, 
+	      #{data.systemOperatorPhone,jdbcType=VARCHAR}, #{data.systemFirmBuild,jdbcType=VARCHAR}, #{data.systemDeptUse,jdbcType=VARCHAR}, 
+	      #{data.systemDeptStock,jdbcType=VARCHAR}, #{data.systemStockist,jdbcType=VARCHAR}, #{data.systemStockistPhone,jdbcType=VARCHAR}, 
+	      #{data.systemIpAddress,jdbcType=VARCHAR}, #{data.systemFuncType,jdbcType=VARCHAR}, #{data.systemStorage,jdbcType=VARCHAR}, 
+	      #{data.dataApplication,jdbcType=VARCHAR}, #{data.systemUptime,jdbcType=VARCHAR}, #{data.reply,jdbcType=VARCHAR}, 
+	      #{data.systemReDwTime,jdbcType=VARCHAR}, #{data.systemData,jdbcType=VARCHAR}, #{data.collectionData,jdbcType=VARCHAR}, 
+	      #{data.dataToOtherSys,jdbcType=VARCHAR}, #{data.importData,jdbcType=VARCHAR}, #{data.inProvinceData,jdbcType=VARCHAR}, 
+	      #{data.inBlocData,jdbcType=VARCHAR}, #{data.includeSensitiveField,jdbcType=VARCHAR}, #{data.sensitiveField,jdbcType=VARCHAR}, 
+	      #{data.externalData,jdbcType=VARCHAR}, #{data.externalDataType,jdbcType=VARCHAR}, #{data.createBy,jdbcType=VARCHAR}, 
+	      #{data.createTime,jdbcType=TIMESTAMP}, #{data.updateBy,jdbcType=VARCHAR}, #{data.updateTime,jdbcType=TIMESTAMP}
+      	)
+      	</foreach>
+      
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="com.asiainfo.busi.entity.SystemInfo">
+		update td_system_info
+	    <set>
+	      <if test="provinceName != null">
+	        province_name = #{provinceName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="deptPiLev != null">
+	        dept_pi_lev = #{deptPiLev,jdbcType=VARCHAR},
+	      </if>
+	      <if test="praSystemName != null">
+	        pra_system_name = #{praSystemName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemName != null">
+	        system_name = #{systemName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemPk != null">
+	        system_pk = #{systemPk,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemAbbreviation != null">
+	        system_abbreviation = #{systemAbbreviation,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemContext != null">
+	        system_context = #{systemContext,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemType != null">
+	        system_type = #{systemType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemDeptBuild != null">
+	        system_dept_build = #{systemDeptBuild,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemDeptManag != null">
+	        system_dept_manag = #{systemDeptManag,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemManager != null">
+	        system_manager = #{systemManager,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemManagerPhone != null">
+	        system_manager_phone = #{systemManagerPhone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemDeptOper != null">
+	        system_dept_oper = #{systemDeptOper,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemOperator != null">
+	        system_operator = #{systemOperator,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemOperatorPhone != null">
+	        system_operator_phone = #{systemOperatorPhone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemFirmBuild != null">
+	        system_firm_build = #{systemFirmBuild,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemDeptUse != null">
+	        system_dept_use = #{systemDeptUse,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemDeptStock != null">
+	        system_dept_stock = #{systemDeptStock,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemStockist != null">
+	        system_stockist = #{systemStockist,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemStockistPhone != null">
+	        system_stockist_phone = #{systemStockistPhone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemIpAddress != null">
+	        system_ip_address = #{systemIpAddress,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemFuncType != null">
+	        system_func_type = #{systemFuncType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemStorage != null">
+	        system_storage = #{systemStorage,jdbcType=VARCHAR},
+	      </if>
+	      <if test="dataApplication != null">
+	        data_application = #{dataApplication,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemUptime != null">
+	        system_uptime = #{systemUptime,jdbcType=VARCHAR},
+	      </if>
+	      <if test="reply != null">
+	        reply = #{reply,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemReDwTime != null">
+	        system_re_dw_time = #{systemReDwTime,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemData != null">
+	        system_data = #{systemData,jdbcType=VARCHAR},
+	      </if>
+	      <if test="collectionData != null">
+	        collection_data = #{collectionData,jdbcType=VARCHAR},
+	      </if>
+	      <if test="dataToOtherSys != null">
+	        data_to_other_sys = #{dataToOtherSys,jdbcType=VARCHAR},
+	      </if>
+	      <if test="importData != null">
+	        import_data = #{importData,jdbcType=VARCHAR},
+	      </if>
+	      <if test="inProvinceData != null">
+	        in_province_data = #{inProvinceData,jdbcType=VARCHAR},
+	      </if>
+	      <if test="inBlocData != null">
+	        in_bloc_data = #{inBlocData,jdbcType=VARCHAR},
+	      </if>
+	      <if test="includeSensitiveField != null">
+	        include_sensitive_field = #{includeSensitiveField,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sensitiveField != null">
+	        sensitive_field = #{sensitiveField,jdbcType=VARCHAR},
+	      </if>
+	      <if test="externalData != null">
+	        external_data = #{externalData,jdbcType=VARCHAR},
+	      </if>
+	      <if test="externalDataType != null">
+	        external_data_type = #{externalDataType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createBy != null">
+	        create_by = #{createBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createTime != null">
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="updateBy != null">
+	        update_by = #{updateBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="updateTime != null">
+	        update_time = #{updateTime,jdbcType=TIMESTAMP},
+	      </if>
+	    </set>
+	    where system_id = #{systemId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    	delete from td_system_info
+    		where system_id = #{systemId,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 过滤条件 -->
+	<sql id="Base_Where_List">
+		<where>
+			1 = 1
+			<if test="provinceName != null">
+		        and province_name = #{provinceName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="deptPiLev != null">
+		        and dept_pi_lev = #{deptPiLev,jdbcType=VARCHAR}
+		      </if>
+		      <if test="praSystemName != null">
+		        and pra_system_name = #{praSystemName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemName != null">
+		        and system_name = #{systemName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemPk != null">
+		        and system_pk = #{systemPk,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemAbbreviation != null">
+		        and system_abbreviation = #{systemAbbreviation,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemContext != null">
+		        and system_context = #{systemContext,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemType != null">
+		        and system_type = #{systemType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemDeptBuild != null">
+		        and system_dept_build = #{systemDeptBuild,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemDeptManag != null">
+		        and system_dept_manag = #{systemDeptManag,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemManager != null">
+		        and system_manager = #{systemManager,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemManagerPhone != null">
+		        and system_manager_phone = #{systemManagerPhone,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemDeptOper != null">
+		        and system_dept_oper = #{systemDeptOper,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemOperator != null">
+		        and system_operator = #{systemOperator,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemOperatorPhone != null">
+		        and system_operator_phone = #{systemOperatorPhone,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemFirmBuild != null">
+		        and system_firm_build = #{systemFirmBuild,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemDeptUse != null">
+		        and system_dept_use = #{systemDeptUse,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemDeptStock != null">
+		        and system_dept_stock = #{systemDeptStock,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemStockist != null">
+		        and system_stockist = #{systemStockist,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemStockistPhone != null">
+		        and system_stockist_phone = #{systemStockistPhone,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemIpAddress != null">
+		        and system_ip_address = #{systemIpAddress,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemFuncType != null">
+		        and system_func_type = #{systemFuncType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemStorage != null">
+		        and system_storage = #{systemStorage,jdbcType=VARCHAR}
+		      </if>
+		      <if test="dataApplication != null">
+		        and data_application = #{dataApplication,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemUptime != null">
+		        and system_uptime = #{systemUptime,jdbcType=VARCHAR}
+		      </if>
+		      <if test="reply != null">
+		        and reply = #{reply,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemReDwTime != null">
+		        and system_re_dw_time = #{systemReDwTime,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemData != null">
+		        and system_data = #{systemData,jdbcType=VARCHAR}
+		      </if>
+		      <if test="collectionData != null">
+		        and collection_data = #{collectionData,jdbcType=VARCHAR}
+		      </if>
+		      <if test="dataToOtherSys != null">
+		        and data_to_other_sys = #{dataToOtherSys,jdbcType=VARCHAR}
+		      </if>
+		      <if test="importData != null">
+		        and import_data = #{importData,jdbcType=VARCHAR}
+		      </if>
+		      <if test="inProvinceData != null">
+	        	and in_province_data = #{inProvinceData,jdbcType=VARCHAR},
+	      	  </if>
+		      <if test="inBlocData != null">
+		        and in_bloc_data = #{inBlocData,jdbcType=VARCHAR}
+		      </if>
+		      <if test="includeSensitiveField != null">
+		        and include_sensitive_field = #{includeSensitiveField,jdbcType=VARCHAR}
+		      </if>
+		      <if test="sensitiveField != null">
+		        and sensitive_field = #{sensitiveField,jdbcType=VARCHAR}
+		      </if>
+		      <if test="externalData != null">
+		        and external_data = #{externalData,jdbcType=VARCHAR}
+		      </if>
+		      <if test="externalDataType != null">
+		        and external_data_type = #{externalDataType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createBy != null">
+		        and create_by = #{createBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createTime != null">
+		        and create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="updateBy != null">
+		        and update_by = #{updateBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="updateTime != null">
+		        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		 </where>
+	</sql>
+	
+
+</mapper>

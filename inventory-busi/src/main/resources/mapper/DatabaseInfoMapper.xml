@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.busi.dao.IDatabaseInfoDao">
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.asiainfo.busi.entity.DatabaseInfo">
+		<id column="database_id" jdbcType="INTEGER" property="databaseId" />
+	    <result column="database_type" jdbcType="VARCHAR" property="databaseType" />
+	    <result column="database_ip" jdbcType="VARCHAR" property="databaseIp" />
+	    <result column="database_name" jdbcType="VARCHAR" property="databaseName" />
+	    <result column="database_version" jdbcType="VARCHAR" property="databaseVersion" />
+	    <result column="datebase_port" jdbcType="VARCHAR" property="datebasePort" />
+	    <result column="database_capacity" jdbcType="VARCHAR" property="databaseCapacity" />
+	    <result column="storage_address" jdbcType="VARCHAR" property="storageAddress" />
+	    <result column="cluster_mode" jdbcType="VARCHAR" property="clusterMode" />
+	    <result column="system_id" jdbcType="INTEGER" property="systemId" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<!-- 字段 -->
+	<sql id="Base_Column_List">
+		database_id, database_type, database_ip, database_name, database_version, datebase_port, 
+	    database_capacity, storage_address, cluster_mode, system_id, create_by, create_time, 
+	    update_by, update_time
+	</sql>
+
+	<!-- 分页查询 -->
+	<select id="selectByPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from td_database_info
+		<include refid="Base_Where_List" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+		select 
+	    <include refid="Base_Column_List" />
+	    from td_database_info
+    	where database_id = #{databaseId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="Map">
+		insert into td_database_info (database_id, database_type, database_ip, 
+		      database_name, database_version, datebase_port, 
+		      database_capacity, storage_address, cluster_mode, 
+		      system_id, create_by, create_time, 
+		      update_by, update_time)
+		    values (nextval('td_database_info_database_id_seq'), #{databaseType,jdbcType=VARCHAR}, #{databaseIp,jdbcType=VARCHAR}, 
+		      #{databaseName,jdbcType=VARCHAR}, #{databaseVersion,jdbcType=VARCHAR}, #{datebasePort,jdbcType=VARCHAR}, 
+		      #{databaseCapacity,jdbcType=VARCHAR}, #{storageAddress,jdbcType=VARCHAR}, #{clusterMode,jdbcType=VARCHAR}, 
+		      #{systemId,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+		      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<!-- 新增 -->
+	<insert id="insertList" parameterType="Map">
+		insert into td_system_info (database_id, database_type, database_ip, 
+		      database_name, database_version, datebase_port, 
+		      database_capacity, storage_address, cluster_mode, 
+		      system_id, create_by, create_time, 
+		      update_by, update_time)
+    	values 
+    	<foreach collection="list" item="data" separator=",">
+    	(nextval('td_database_info_database_id_seq'), #{data.databaseType,jdbcType=VARCHAR}, #{data.databaseIp,jdbcType=VARCHAR}, 
+		      #{data.databaseName,jdbcType=VARCHAR}, #{data.databaseVersion,jdbcType=VARCHAR}, #{data.datebasePort,jdbcType=VARCHAR}, 
+		      #{data.databaseCapacity,jdbcType=VARCHAR}, #{data.storageAddress,jdbcType=VARCHAR}, #{data.clusterMode,jdbcType=VARCHAR}, 
+		      #{data.systemId,jdbcType=INTEGER}, #{data.createBy,jdbcType=VARCHAR}, #{data.createTime,jdbcType=TIMESTAMP}, 
+		      #{data.updateBy,jdbcType=VARCHAR}, #{data.updateTime,jdbcType=TIMESTAMP}
+      	)
+      	</foreach>
+      
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="com.asiainfo.busi.entity.DatabaseInfo">
+		update td_database_info
+	    <set>
+	      <if test="databaseType != null">
+	        database_type = #{databaseType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="databaseIp != null">
+	        database_ip = #{databaseIp,jdbcType=VARCHAR},
+	      </if>
+	      <if test="databaseName != null">
+	        database_name = #{databaseName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="databaseVersion != null">
+	        database_version = #{databaseVersion,jdbcType=VARCHAR},
+	      </if>
+	      <if test="datebasePort != null">
+	        datebase_port = #{datebasePort,jdbcType=VARCHAR},
+	      </if>
+	      <if test="databaseCapacity != null">
+	        database_capacity = #{databaseCapacity,jdbcType=VARCHAR},
+	      </if>
+	      <if test="storageAddress != null">
+	        storage_address = #{storageAddress,jdbcType=VARCHAR},
+	      </if>
+	      <if test="clusterMode != null">
+	        cluster_mode = #{clusterMode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemId != null">
+	        system_id = #{systemId,jdbcType=INTEGER},
+	      </if>
+	      <if test="createBy != null">
+	        create_by = #{createBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createTime != null">
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="updateBy != null">
+	        update_by = #{updateBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="updateTime != null">
+	        update_time = #{updateTime,jdbcType=TIMESTAMP},
+	      </if>
+	    </set>
+	    where database_id = #{databaseId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    	delete from td_database_info
+    		where database_id = #{databaseId,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 过滤条件 -->
+	<sql id="Base_Where_List">
+		<where>
+			1 = 1
+			<if test="databaseType != null">
+		        and database_type = #{databaseType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="databaseIp != null">
+		        and database_ip = #{databaseIp,jdbcType=VARCHAR}
+		      </if>
+		      <if test="databaseName != null">
+		        and database_name = #{databaseName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="databaseVersion != null">
+		        and database_version = #{databaseVersion,jdbcType=VARCHAR}
+		      </if>
+		      <if test="datebasePort != null">
+		        and datebase_port = #{datebasePort,jdbcType=VARCHAR}
+		      </if>
+		      <if test="databaseCapacity != null">
+		        and database_capacity = #{databaseCapacity,jdbcType=VARCHAR}
+		      </if>
+		      <if test="storageAddress != null">
+		        and storage_address = #{storageAddress,jdbcType=VARCHAR}
+		      </if>
+		      <if test="clusterMode != null">
+		        and cluster_mode = #{clusterMode,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemId != null">
+		        and system_id = #{systemId,jdbcType=INTEGER}
+		      </if>
+		      <if test="createBy != null">
+		        and create_by = #{createBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createTime != null">
+		        and create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="updateBy != null">
+		        and update_by = #{updateBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="updateTime != null">
+		        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		 </where>
+	</sql>
+	
+
+</mapper>

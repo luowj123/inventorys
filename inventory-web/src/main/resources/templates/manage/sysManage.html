@@ -1,0 +1,67 @@
+<!--
+ * @Descripttion: 系统管理
+ * @Author: chenpei<chenpei@asiainfo.com>
+ * @Date: 2020-04-15 16:53:00
+ * @LastEditTime: 2020-04-21 19:29:26
+ -->
+
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+
+<head th:include="include :: header"></head>
+
+<body class="gray-bg">
+  <div class="container-div ui-layout-center">
+    <div class="row">
+      <div class="col-sm-12 search-collapse">
+        <form class="layui-form systemInfoForm">
+          <div class="layui-inline">
+            <label class="layui-form-label">系统名称:</label>
+            <div class="layui-input-inline">
+              <input name="praSystemName" type="text" class="layui-input" placeholder="请输入">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">子系统名称:</label>
+            <div class="layui-input-inline">
+              <input name="systemName" type="text" class="layui-input" placeholder="请输入">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">资产状态:</label>
+            <div class="layui-input-inline">
+              <select name="assetState">
+                <option value="">全部</option>
+                <option value="0">待审核</option>
+                <option value="1">审核通过</option>
+                <option value="2">审核不通过</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline button-group">
+            <button type="button" class="layui-btn" lay-submit lay-filter="sysSearch">查询</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+          </div>
+        </form>
+      </div>
+      <div class="btn-group-sm" id="toolbar" role="group">
+        <button type="button" class="layui-btn layui-btn-normal" onclick="sysManage.batchImport()">
+          <i class="fa fa-download"></i> 批量导入
+        </button>
+        <button type="button" class="layui-btn" onclick="sysManage.entering()">
+          <i class="fa fa-pencil-square-o"></i>
+          手工录入
+        </button>
+      </div>
+      <div class="col-sm-12 select-table table-striped">
+        <table id="sysTable"></table>
+      </div>
+    </div>
+  </div>
+  <div th:include="include :: footer"></div>
+  <script th:src="@{/js/manage/sysmanage.js}"></script>
+  <script th:src="@{/js/toolMethod.js}"></script>
+</body>
+
+</html>

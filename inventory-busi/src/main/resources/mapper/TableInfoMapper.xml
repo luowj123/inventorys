@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.busi.dao.ITableInfoDao">
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.asiainfo.busi.entity.TableInfo">
+	    <id column="table_id" jdbcType="INTEGER" property="tableId" />
+	    <result column="system_id" jdbcType="INTEGER" property="systemId" />
+	    <result column="database_ip" jdbcType="VARCHAR" property="databaseIp" />
+	    <result column="database_name" jdbcType="VARCHAR" property="databaseName" />
+	    <result column="database_user" jdbcType="VARCHAR" property="databaseUser" />
+	    <result column="table_name" jdbcType="VARCHAR" property="tableName" />
+	    <result column="table_cname" jdbcType="VARCHAR" property="tableCname" />
+	    <result column="table_information" jdbcType="VARCHAR" property="tableInformation" />
+	    <result column="table_theme" jdbcType="VARCHAR" property="tableTheme" />
+	    <result column="table_size" jdbcType="INTEGER" property="tableSize" />
+	    <result column="storage_time" jdbcType="INTEGER" property="storageTime" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<!-- 字段 -->
+	<sql id="Base_Column_List">
+		table_id, system_id, database_ip, database_name, database_user, table_name, table_cname, 
+	    table_information, table_theme, table_size, storage_time, create_by, create_time, 
+	    update_by, update_time
+	</sql>
+
+	<!-- 分页查询 -->
+	<select id="selectByPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from td_table_info
+		<include refid="Base_Where_List" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+		select 
+	    <include refid="Base_Column_List" />
+	    from td_table_info
+    	where table_id = #{tableId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="Map">
+		insert into td_table_info (table_id, system_id, database_ip, 
+	      database_name, database_user, table_name, 
+	      table_cname, table_information, table_theme, 
+	      table_size, storage_time, create_by, 
+	      create_time, update_by, update_time
+	      )
+	    values (nextval('td_table_info_table_id_seq'), #{systemId,jdbcType=INTEGER}, #{databaseIp,jdbcType=VARCHAR}, 
+	      #{databaseName,jdbcType=VARCHAR}, #{databaseUser,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, 
+	      #{tableCname,jdbcType=VARCHAR}, #{tableInformation,jdbcType=VARCHAR}, #{tableTheme,jdbcType=VARCHAR}, 
+	      #{tableSize,jdbcType=INTEGER}, #{storageTime,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, 
+	      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+	      )
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="com.asiainfo.busi.entity.TableInfo">
+		update td_table_info
+	    <set>
+	      <if test="systemId != null">
+	        system_id = #{systemId,jdbcType=INTEGER},
+	      </if>
+	      <if test="databaseIp != null">
+	        database_ip = #{databaseIp,jdbcType=VARCHAR},
+	      </if>
+	      <if test="databaseName != null">
+	        database_name = #{databaseName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="databaseUser != null">
+	        database_user = #{databaseUser,jdbcType=VARCHAR},
+	      </if>
+	      <if test="tableName != null">
+	        table_name = #{tableName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="tableCname != null">
+	        table_cname = #{tableCname,jdbcType=VARCHAR},
+	      </if>
+	      <if test="tableInformation != null">
+	        table_information = #{tableInformation,jdbcType=VARCHAR},
+	      </if>
+	      <if test="tableTheme != null">
+	        table_theme = #{tableTheme,jdbcType=VARCHAR},
+	      </if>
+	      <if test="tableSize != null">
+	        table_size = #{tableSize,jdbcType=INTEGER},
+	      </if>
+	      <if test="storageTime != null">
+	        storage_time = #{storageTime,jdbcType=INTEGER},
+	      </if>
+	      <if test="createBy != null">
+	        create_by = #{createBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createTime != null">
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="updateBy != null">
+	        update_by = #{updateBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="updateTime != null">
+	        update_time = #{updateTime,jdbcType=TIMESTAMP},
+	      </if>
+	    </set>
+	    where table_id = #{tableId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    	delete from td_table_info
+    		where table_id = #{tableId,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 过滤条件 -->
+	<sql id="Base_Where_List">
+		<where>
+			1 = 1
+			<if test="systemId != null">
+		        and system_id = #{systemId,jdbcType=INTEGER}
+		      </if>
+		      <if test="databaseIp != null">
+		        and database_ip = #{databaseIp,jdbcType=VARCHAR}
+		      </if>
+		      <if test="databaseName != null">
+		        and database_name = #{databaseName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="databaseUser != null">
+		        and database_user = #{databaseUser,jdbcType=VARCHAR}
+		      </if>
+		      <if test="tableName != null">
+		        and table_name = #{tableName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="tableCname != null">
+		        and table_cname = #{tableCname,jdbcType=VARCHAR}
+		      </if>
+		      <if test="tableInformation != null">
+		        and table_information = #{tableInformation,jdbcType=VARCHAR}
+		      </if>
+		      <if test="tableTheme != null">
+		        and table_theme = #{tableTheme,jdbcType=VARCHAR}
+		      </if>
+		      <if test="tableSize != null">
+		        and table_size = #{tableSize,jdbcType=INTEGER}
+		      </if>
+		      <if test="storageTime != null">
+		        and storage_time = #{storageTime,jdbcType=INTEGER}
+		      </if>
+		      <if test="createBy != null">
+		        and create_by = #{createBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createTime != null">
+		        and create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="updateBy != null">
+		        and update_by = #{updateBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="updateTime != null">
+		        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		 </where>
+	</sql>
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.busi.dao.IModelDao">
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.asiainfo.busi.entity.ModelAttr">
+	    <result column="attr_id" jdbcType="INTEGER" property="attrId" />
+	    <result column="model_id" jdbcType="INTEGER" property="modelId" />
+	    <result column="model_name" jdbcType="VARCHAR" property="modelName" />
+	    <result column="attr_name" jdbcType="VARCHAR" property="attrName" />
+	    <result column="attr_type" jdbcType="VARCHAR" property="attrType" />
+	    <result column="enable_null" jdbcType="INTEGER" property="enableNull" />
+	    <result column="enable_find" jdbcType="VARCHAR" property="enableFind" />
+	    <result column="attr_cname" jdbcType="VARCHAR" property="attrCname" />
+	    <result column="lable_type" jdbcType="VARCHAR" property="lableType" />
+	    <result column="enable_disable" jdbcType="SMALLINT" property="enableDisable" />
+	    <result column="order_index" jdbcType="INTEGER" property="orderIndex" />
+	</resultMap>
+
+	<!-- 字段 -->
+	<sql id="Base_Column_List">
+		attr_id, model_id, model_name, attr_name, attr_type, enable_null, enable_find, 
+		attr_cname, lable_type, enable_disable, order_index
+	</sql>
+
+	<!-- 根据ID查询 -->
+	<select id="selectByPrimaryKey" parameterType="String" resultType="Map">
+		select 
+	    <include refid="Base_Column_List" />
+	    from td_model_attr
+    	where model_name = #{modelName,jdbcType=VARCHAR}
+    	order by order_index
+	</select>
+
+</mapper>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.busi.dao.ITableFiledInfoDao">
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.asiainfo.busi.entity.TableFiledInfo">
+	    <id column="field_id" jdbcType="INTEGER" property="fieldId" />
+	    <result column="table_id" jdbcType="INTEGER" property="tableId" />
+	    <result column="system_id" jdbcType="INTEGER" property="systemId" />
+	    <result column="database_ip" jdbcType="VARCHAR" property="databaseIp" />
+	    <result column="database_name" jdbcType="VARCHAR" property="databaseName" />
+	    <result column="database_user" jdbcType="VARCHAR" property="databaseUser" />
+	    <result column="field_name" jdbcType="VARCHAR" property="fieldName" />
+	    <result column="field_cname" jdbcType="VARCHAR" property="fieldCname" />
+	    <result column="field_type" jdbcType="VARCHAR" property="fieldType" />
+	    <result column="field_cate" jdbcType="VARCHAR" property="fieldCate" />
+	    <result column="field_primary" jdbcType="VARCHAR" property="fieldPrimary" />
+	    <result column="business_desc" jdbcType="VARCHAR" property="businessDesc" />
+	    <result column="field_null" jdbcType="VARCHAR" property="fieldNull" />
+	    <result column="refer_data" jdbcType="VARCHAR" property="referData" />
+	    <result column="security_level" jdbcType="VARCHAR" property="securityLevel" />
+	    <result column="field_context" jdbcType="VARCHAR" property="fieldContext" />
+	    <result column="field_foreign" jdbcType="VARCHAR" property="fieldForeign" />
+	    <result column="foreine_table_name" jdbcType="VARCHAR" property="foreineTableName" />
+	    <result column="table_name" jdbcType="VARCHAR" property="tableName" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<!-- 字段 -->
+	<sql id="Base_Column_List">
+		field_id, table_id, system_id, database_ip, database_name, database_user, field_name, 
+	    field_cname, field_type, field_cate, field_primary, business_desc, field_null, refer_data, 
+	    security_level, field_context, field_foreign, foreine_table_name, table_name, create_by, 
+	    create_time, update_by, update_time
+	</sql>
+
+	<!-- 分页查询 -->
+	<select id="selectByPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from td_table_filed_info
+		<include refid="Base_Where_List" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+		select 
+	    <include refid="Base_Column_List" />
+	    from td_table_filed_info
+    	where int_id = #{intId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="Map">
+		insert into td_table_filed_info (field_id, table_id, system_id, 
+	      database_ip, database_name, database_user, 
+	      field_name, field_cname, field_type, 
+	      field_cate, field_primary, business_desc, 
+	      field_null, refer_data, security_level, 
+	      field_context, field_foreign, foreine_table_name, 
+	      table_name, create_by, create_time, 
+	      update_by, update_time)
+	    values (nextval('td_table_filed_info_field_id_seq'), #{tableId,jdbcType=INTEGER}, #{systemId,jdbcType=INTEGER}, 
+	      #{databaseIp,jdbcType=VARCHAR}, #{databaseName,jdbcType=VARCHAR}, #{databaseUser,jdbcType=VARCHAR}, 
+	      #{fieldName,jdbcType=VARCHAR}, #{fieldCname,jdbcType=VARCHAR}, #{fieldType,jdbcType=VARCHAR}, 
+	      #{fieldCate,jdbcType=VARCHAR}, #{fieldPrimary,jdbcType=VARCHAR}, #{businessDesc,jdbcType=VARCHAR}, 
+	      #{fieldNull,jdbcType=VARCHAR}, #{referData,jdbcType=VARCHAR}, #{securityLevel,jdbcType=VARCHAR}, 
+	      #{fieldContext,jdbcType=VARCHAR}, #{fieldForeign,jdbcType=VARCHAR}, #{foreineTableName,jdbcType=VARCHAR}, 
+	      #{tableName,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+	      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="com.asiainfo.busi.entity.TableFiledInfo">
+		update td_table_filed_info
+	    <set>
+	      <if test="tableId != null">
+	        table_id = #{tableId,jdbcType=INTEGER},
+	      </if>
+	      <if test="systemId != null">
+	        system_id = #{systemId,jdbcType=INTEGER},
+	      </if>
+	      <if test="databaseIp != null">
+	        database_ip = #{databaseIp,jdbcType=VARCHAR},
+	      </if>
+	      <if test="databaseName != null">
+	        database_name = #{databaseName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="databaseUser != null">
+	        database_user = #{databaseUser,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fieldName != null">
+	        field_name = #{fieldName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fieldCname != null">
+	        field_cname = #{fieldCname,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fieldType != null">
+	        field_type = #{fieldType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fieldCate != null">
+	        field_cate = #{fieldCate,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fieldPrimary != null">
+	        field_primary = #{fieldPrimary,jdbcType=VARCHAR},
+	      </if>
+	      <if test="businessDesc != null">
+	        business_desc = #{businessDesc,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fieldNull != null">
+	        field_null = #{fieldNull,jdbcType=VARCHAR},
+	      </if>
+	      <if test="referData != null">
+	        refer_data = #{referData,jdbcType=VARCHAR},
+	      </if>
+	      <if test="securityLevel != null">
+	        security_level = #{securityLevel,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fieldContext != null">
+	        field_context = #{fieldContext,jdbcType=VARCHAR},
+	      </if>
+	      <if test="fieldForeign != null">
+	        field_foreign = #{fieldForeign,jdbcType=VARCHAR},
+	      </if>
+	      <if test="foreineTableName != null">
+	        foreine_table_name = #{foreineTableName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="tableName != null">
+	        table_name = #{tableName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createBy != null">
+	        create_by = #{createBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createTime != null">
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="updateBy != null">
+	        update_by = #{updateBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="updateTime != null">
+	        update_time = #{updateTime,jdbcType=TIMESTAMP},
+	      </if>
+	    </set>
+	    where field_id = #{fieldId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    	delete from td_table_filed_info
+    		where field_id = #{fieldId,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 过滤条件 -->
+	<sql id="Base_Where_List">
+		<where>
+			1 = 1
+			<if test="tableId != null">
+		        and table_id = #{tableId,jdbcType=INTEGER}
+		      </if>
+		      <if test="systemId != null">
+		        and system_id = #{systemId,jdbcType=INTEGER}
+		      </if>
+		      <if test="databaseIp != null">
+		        and database_ip = #{databaseIp,jdbcType=VARCHAR}
+		      </if>
+		      <if test="databaseName != null">
+		        and database_name = #{databaseName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="databaseUser != null">
+		        and database_user = #{databaseUser,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fieldName != null">
+		        and field_name = #{fieldName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fieldCname != null">
+		        and field_cname = #{fieldCname,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fieldType != null">
+		        and field_type = #{fieldType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fieldCate != null">
+		        and field_cate = #{fieldCate,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fieldPrimary != null">
+		        and field_primary = #{fieldPrimary,jdbcType=VARCHAR}
+		      </if>
+		      <if test="businessDesc != null">
+		        and business_desc = #{businessDesc,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fieldNull != null">
+		        and field_null = #{fieldNull,jdbcType=VARCHAR}
+		      </if>
+		      <if test="referData != null">
+		        and refer_data = #{referData,jdbcType=VARCHAR}
+		      </if>
+		      <if test="securityLevel != null">
+		        and security_level = #{securityLevel,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fieldContext != null">
+		        and field_context = #{fieldContext,jdbcType=VARCHAR}
+		      </if>
+		      <if test="fieldForeign != null">
+		        and field_foreign = #{fieldForeign,jdbcType=VARCHAR}
+		      </if>
+		      <if test="foreineTableName != null">
+		        and foreine_table_name = #{foreineTableName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="tableName != null">
+		        and table_name = #{tableName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createBy != null">
+		        and create_by = #{createBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createTime != null">
+		        and create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="updateBy != null">
+		        and update_by = #{updateBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="updateTime != null">
+		        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		 </where>
+	</sql>
+
+</mapper>

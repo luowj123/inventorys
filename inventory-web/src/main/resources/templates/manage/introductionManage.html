@@ -1,0 +1,78 @@
+<!--
+ * @Descripttion: 接口管理
+ * @Author: chenpei<chenpei@asiainfo.com>
+ * @Date: 2020-04-17 14:42:15
+ * @LastEditTime: 2020-04-17 14:45:38
+ -->
+
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+
+<head th:include="include :: header"></head>
+
+<body class="gray-bg">
+  <div class="container-div ui-layout-center">
+    <div class="row">
+      <div class="col-sm-12 search-collapse">
+        <form class="layui-form">
+          <div class="layui-inline">
+            <label class="layui-form-label">归属系统:</label>
+            <div class="layui-input-inline">
+              <select name="">
+                <option>--请选择--</option>
+                <option>系统1</option>
+                <option>系统2</option>
+                <option>系统3</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">对接系统:</label>
+            <div class="layui-input-inline">
+              <input name="" type="text" class="layui-input" placeholder="请输入">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">接口名:</label>
+            <div class="layui-input-inline">
+              <input name="" type="text" class="layui-input" placeholder="请输入">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">接口类型:</label>
+            <div class="layui-input-inline">
+              <select name="">
+                <option>全部</option>
+                <option>数据型</option>
+                <option>功能型</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">资产状态:</label>
+            <div class="layui-input-inline">
+              <select name="">
+                <option>全部</option>
+                <option>待审核</option>
+                <option>审核通过</option>
+                <option>审核不通过</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline button-group">
+            <button type="button" class="layui-btn" lay-submit lay-filter="introductionSearch">查询</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-12 select-table table-striped">
+        <table id="introductionTable"></table>
+      </div>
+    </div>
+  </div>
+  <div th:include="include :: footer"></div>
+  <script th:src="@{/js/manage/introductionManage.js}"></script>
+</body>
+
+</html>

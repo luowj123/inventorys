@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asiainfo.busi.dao.IIntroductionInfoDao">
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.asiainfo.busi.entity.IntroductionInfo">
+	    <id column="int_id" jdbcType="INTEGER" property="intId" />
+	    <result column="int_type" jdbcType="VARCHAR" property="intType" />
+	    <result column="local_int_address" jdbcType="VARCHAR" property="localIntAddress" />
+	    <result column="system_id" jdbcType="INTEGER" property="systemId" />
+	    <result column="system_name" jdbcType="VARCHAR" property="systemName" />
+	    <result column="dock_system_id" jdbcType="INTEGER" property="dockSystemId" />
+	    <result column="dock_system_name" jdbcType="VARCHAR" property="dockSystemName" />
+	    <result column="romote_int_address" jdbcType="VARCHAR" property="romoteIntAddress" />
+	    <result column="int_theme" jdbcType="VARCHAR" property="intTheme" />
+	    <result column="trans_direction" jdbcType="VARCHAR" property="transDirection" />
+	    <result column="int_interact_context" jdbcType="VARCHAR" property="intInteractContext" />
+	    <result column="int_name" jdbcType="VARCHAR" property="intName" />
+	    <result column="int_contract_type" jdbcType="VARCHAR" property="intContractType" />
+	    <result column="int_trans_freq" jdbcType="VARCHAR" property="intTransFreq" />
+	    <result column="table_file" jdbcType="VARCHAR" property="tableFile" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<!-- 字段 -->
+	<sql id="Base_Column_List">
+		int_id, int_type, local_int_address, system_id, system_name, dock_system_id, dock_system_name, 
+	    romote_int_address, int_theme, trans_direction, int_interact_context, int_name, int_contract_type, 
+	    int_trans_freq, table_file, create_by, create_time, update_by, update_time
+	</sql>
+
+	<!-- 分页查询 -->
+	<select id="selectByPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from td_introduction_info
+		<include refid="Base_Where_List" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+		select 
+	    <include refid="Base_Column_List" />
+	    from td_introduction_info
+    	where int_id = #{intId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="Map">
+		insert into td_introduction_info (int_id, int_type, local_int_address, 
+	      system_id, system_name, dock_system_id, 
+	      dock_system_name, romote_int_address, int_theme, 
+	      trans_direction, int_interact_context, int_name, 
+	      int_contract_type, int_trans_freq, table_file, 
+	      create_by, create_time, update_by, 
+	      update_time)
+	    values (nextval('td_introduction_info_int_id_seq'), #{intType,jdbcType=VARCHAR}, #{localIntAddress,jdbcType=VARCHAR}, 
+	      #{systemId,jdbcType=INTEGER}, #{systemName,jdbcType=VARCHAR}, #{dockSystemId,jdbcType=INTEGER}, 
+	      #{dockSystemName,jdbcType=VARCHAR}, #{romoteIntAddress,jdbcType=VARCHAR}, #{intTheme,jdbcType=VARCHAR}, 
+	      #{transDirection,jdbcType=VARCHAR}, #{intInteractContext,jdbcType=VARCHAR}, #{intName,jdbcType=VARCHAR}, 
+	      #{intContractType,jdbcType=VARCHAR}, #{intTransFreq,jdbcType=VARCHAR}, #{tableFile,jdbcType=VARCHAR}, 
+	      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+	      #{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<!-- 新增 -->
+	<insert id="insertList" parameterType="Map">
+		insert into td_system_info (int_id, int_type, local_int_address, 
+	      system_id, system_name, dock_system_id, 
+	      dock_system_name, romote_int_address, int_theme, 
+	      trans_direction, int_interact_context, int_name, 
+	      int_contract_type, int_trans_freq, table_file, 
+	      create_by, create_time, update_by, 
+	      update_time)
+    	values 
+    	<foreach collection="list" item="data" separator=",">
+    	(nextval('td_introduction_info_int_id_seq'), #{data.intType,jdbcType=VARCHAR}, #{data.localIntAddress,jdbcType=VARCHAR}, 
+	      #{data.systemId,jdbcType=INTEGER}, #{data.systemName,jdbcType=VARCHAR}, #{data.dockSystemId,jdbcType=INTEGER}, 
+	      #{data.dockSystemName,jdbcType=VARCHAR}, #{data.romoteIntAddress,jdbcType=VARCHAR}, #{data.intTheme,jdbcType=VARCHAR}, 
+	      #{data.transDirection,jdbcType=VARCHAR}, #{data.intInteractContext,jdbcType=VARCHAR}, #{data.intName,jdbcType=VARCHAR}, 
+	      #{data.intContractType,jdbcType=VARCHAR}, #{data.intTransFreq,jdbcType=VARCHAR}, #{data.tableFile,jdbcType=VARCHAR}, 
+	      #{data.createBy,jdbcType=VARCHAR}, #{data.createTime,jdbcType=TIMESTAMP}, #{data.updateBy,jdbcType=VARCHAR}, 
+	      #{data.updateTime,jdbcType=TIMESTAMP}}
+      	)
+      	</foreach>
+      
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="com.asiainfo.busi.entity.IntroductionInfo">
+		update td_introduction_info
+	    <set>
+	      <if test="intType != null">
+	        int_type = #{intType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="localIntAddress != null">
+	        local_int_address = #{localIntAddress,jdbcType=VARCHAR},
+	      </if>
+	      <if test="systemId != null">
+	        system_id = #{systemId,jdbcType=INTEGER},
+	      </if>
+	      <if test="systemName != null">
+	        system_name = #{systemName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="dockSystemId != null">
+	        dock_system_id = #{dockSystemId,jdbcType=INTEGER},
+	      </if>
+	      <if test="dockSystemName != null">
+	        dock_system_name = #{dockSystemName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="romoteIntAddress != null">
+	        romote_int_address = #{romoteIntAddress,jdbcType=VARCHAR},
+	      </if>
+	      <if test="intTheme != null">
+	        int_theme = #{intTheme,jdbcType=VARCHAR},
+	      </if>
+	      <if test="transDirection != null">
+	        trans_direction = #{transDirection,jdbcType=VARCHAR},
+	      </if>
+	      <if test="intInteractContext != null">
+	        int_interact_context = #{intInteractContext,jdbcType=VARCHAR},
+	      </if>
+	      <if test="intName != null">
+	        int_name = #{intName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="intContractType != null">
+	        int_contract_type = #{intContractType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="intTransFreq != null">
+	        int_trans_freq = #{intTransFreq,jdbcType=VARCHAR},
+	      </if>
+	      <if test="tableFile != null">
+	        table_file = #{tableFile,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createBy != null">
+	        create_by = #{createBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createTime != null">
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="updateBy != null">
+	        update_by = #{updateBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="updateTime != null">
+	        update_time = #{updateTime,jdbcType=TIMESTAMP},
+	      </if>
+	    </set>
+	    where int_id = #{intId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    	delete from td_introduction_info
+    		where int_id = #{intId,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 过滤条件 -->
+	<sql id="Base_Where_List">
+		<where>
+			1 = 1
+			<if test="intType != null">
+		        and int_type = #{intType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="localIntAddress != null">
+		        and local_int_address = #{localIntAddress,jdbcType=VARCHAR}
+		      </if>
+		      <if test="systemId != null">
+		        and system_id = #{systemId,jdbcType=INTEGER}
+		      </if>
+		      <if test="systemName != null">
+		        and system_name = #{systemName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="dockSystemId != null">
+		        and dock_system_id = #{dockSystemId,jdbcType=INTEGER}
+		      </if>
+		      <if test="dockSystemName != null">
+		        and dock_system_name = #{dockSystemName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="romoteIntAddress != null">
+		        and romote_int_address = #{romoteIntAddress,jdbcType=VARCHAR}
+		      </if>
+		      <if test="intTheme != null">
+		        and int_theme = #{intTheme,jdbcType=VARCHAR}
+		      </if>
+		      <if test="transDirection != null">
+		        and trans_direction = #{transDirection,jdbcType=VARCHAR}
+		      </if>
+		      <if test="intInteractContext != null">
+		        and int_interact_context = #{intInteractContext,jdbcType=VARCHAR}
+		      </if>
+		      <if test="intName != null">
+		        and int_name = #{intName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="intContractType != null">
+		        and int_contract_type = #{intContractType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="intTransFreq != null">
+		        and int_trans_freq = #{intTransFreq,jdbcType=VARCHAR}
+		      </if>
+		      <if test="tableFile != null">
+		        and table_file = #{tableFile,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createBy != null">
+		        and create_by = #{createBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createTime != null">
+		        and create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="updateBy != null">
+		        and update_by = #{updateBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="updateTime != null">
+		        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		 </where>
+	</sql>
+
+</mapper>
